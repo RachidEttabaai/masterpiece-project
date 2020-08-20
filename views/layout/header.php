@@ -2,14 +2,7 @@
 
 require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
 
-use App\Country\Country;
 use App\Summary\Summary;
-
-$countries = new Country("https://api.covid19api.com/countries");
-
-// if ($countries->countCountriesinDB() === 0) {
-//     $countries->insertCountriesDatastoDB();
-// }
 
 $summary = new Summary("https://api.covid19api.com/summary");
 $results = $summary->getSummaryFromAPI();
