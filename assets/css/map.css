@@ -30,3 +30,7 @@
         height: 600px;
     }
 }
+
+template {
+    border-radius: 1.5em;
+}

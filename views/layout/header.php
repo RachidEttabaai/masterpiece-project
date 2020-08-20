@@ -7,16 +7,12 @@ use App\Summary\Summary;
 
 $countries = new Country("https://api.covid19api.com/countries");
 
-if ($countries->countCountriesinDB() === 0) {
-    $countries->insertCountriesDatastoDB();
-}
-
+// if ($countries->countCountriesinDB() === 0) {
+//     $countries->insertCountriesDatastoDB();
+// }
 
 $summary = new Summary("https://api.covid19api.com/summary");
 $results = $summary->getSummaryFromAPI();
-
-$country = new Country(null);
-$listcountries = $country->getAllCountriesFromDB();
 
 $uri = trim($_SERVER["REQUEST_URI"], "/");
 if ($uri === "data") {

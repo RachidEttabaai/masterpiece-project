@@ -42,7 +42,7 @@ require_once 'layout' . DIRECTORY_SEPARATOR . "header.php";
                       </strong>
                     </li>
                     <li class="list-group-item">
-                      Total deaths : 
+                      Total Deceased : 
                       <strong>
                         <em class="text-danger">
                           <?= $globalresults["TotalDeaths"] ?>
@@ -51,7 +51,7 @@ require_once 'layout' . DIRECTORY_SEPARATOR . "header.php";
                       </strong>
                     </li>
                     <li class="list-group-item">
-                      New deaths : 
+                      New Deceased : 
                       <strong>
                         <em class="text-danger">
                           <?= $globalresults["NewDeaths"] ?>
@@ -94,9 +94,9 @@ require_once 'layout' . DIRECTORY_SEPARATOR . "header.php";
                         <th>Total confirmed</th>
                         <th>New confirmed</th>
                         <th>% of confirmed</th>
-                        <th>Total deaths</th>
-                        <th>New deaths</th>
-                        <th>% of deaths</th>
+                        <th>Total Deceased</th>
+                        <th>New Deceased</th>
+                        <th>% of Deceased</th>
                         <th>Total recovered</th>
                         <th>New recovered</th>
                         <th>% of recovered</th>
@@ -112,7 +112,7 @@ require_once 'layout' . DIRECTORY_SEPARATOR . "header.php";
                         <tr>
                           <td>
                             <img src="https://www.countryflags.io/<?= $summarypercountryresult["CountryCode"] ?>/flat/32.png"
-                                 title="<?= $summarypercountryresult["Country"] ?>">
+                                 title="<?= $summarypercountryresult["Country"] ?>" />
                             <?= $summarypercountryresult["Country"] ?>
                           </td>
                           <td>
