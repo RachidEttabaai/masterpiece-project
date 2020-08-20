@@ -20,9 +20,25 @@ require_once 'layout' . DIRECTORY_SEPARATOR . "header.php";
 
                 <?php
                 $globalresults = $results["Global"];
-                $percentconfirmedglobal = round(($globalresults["NewConfirmed"]/$globalresults["TotalConfirmed"])*100, 2);
-                $percentdeathglobal = round(($globalresults["NewDeaths"]/$globalresults["TotalDeaths"])*100, 2);
-                $percentrecoveredglobal = round(($globalresults["NewRecovered"]/$globalresults["TotalRecovered"])*100, 2);
+
+                if($globalresults["TotalConfirmed"] > 0 && $globalresults["NewConfirmed"] > 0){
+                  $percentconfirmedglobal = round(($globalresults["NewConfirmed"]/$globalresults["TotalConfirmed"])*100, 2);
+                }else{
+                  $percentconfirmedglobal = 0;
+                }
+
+                if($globalresults["TotalDeaths"] > 0 && $globalresults["NewDeaths"] > 0){
+                  $percentdeathglobal = round(($globalresults["NewDeaths"]/$globalresults["TotalDeaths"])*100, 2);
+                }else{
+                  $percentdeathglobal = 0;
+                }
+                
+                if($globalresults["TotalRecovered"] > 0 && $globalresults["NewRecovered"] > 0){
+                  $percentrecoveredglobal = round(($globalresults["NewRecovered"]/$globalresults["TotalRecovered"])*100, 2);
+                }else{
+                  $percentrecoveredglobal = 0;
+                }
+                
                 ?>
 
                 <ul class="list-group">
@@ -93,21 +109,37 @@ require_once 'layout' . DIRECTORY_SEPARATOR . "header.php";
                         <th>Name</th>
                         <th>Total confirmed</th>
                         <th>New confirmed</th>
-                        <th>% of confirmed</th>
-                        <th>Total Deceased</th>
-                        <th>New Deceased</th>
-                        <th>% of Deceased</th>
+                        <th>%</th>
+                        <th>Total deceased</th>
+                        <th>New deceased</th>
+                        <th>%</th>
                         <th>Total recovered</th>
                         <th>New recovered</th>
-                        <th>% of recovered</th>
+                        <th>%</th>
                       </tr>
                     </thead>
                     <tbody>
                       <?php foreach ($summarypercountryresults as $summarypercountryresult) : ?>
                             <?php
-                            $percentconfirmedbycountry = round(($summarypercountryresult["NewConfirmed"]/$summarypercountryresult["TotalConfirmed"])*100, 2);
-                            $percentdeathbycountry = round(($summarypercountryresult["NewDeaths"]/$summarypercountryresult["TotalDeaths"])*100, 2);
-                            $percentrecoveredbycountry = round(($summarypercountryresult["NewRecovered"]/$summarypercountryresult["TotalRecovered"])*100, 2);
+
+                            if($summarypercountryresult["TotalConfirmed"] > 0 && $summarypercountryresult["NewConfirmed"] > 0){
+                              $percentconfirmedbycountry = round(($summarypercountryresult["NewConfirmed"]/$summarypercountryresult["TotalConfirmed"])*100, 2);
+                            }else{
+                              $percentconfirmedbycountry = 0;
+                            }
+
+                            if($summarypercountryresult["TotalDeaths"] > 0 && $summarypercountryresult["NewDeaths"] > 0){
+                              $percentdeathbycountry = round(($summarypercountryresult["NewDeaths"]/$summarypercountryresult["TotalDeaths"])*100, 2);
+                            }else{
+                              $percentdeathbycountry = 0;
+                            }
+
+                            if($summarypercountryresult["TotalRecovered"] > 0 && $summarypercountryresult["NewRecovered"] > 0){
+                              $percentrecoveredbycountry = round(($summarypercountryresult["NewRecovered"]/$summarypercountryresult["TotalRecovered"])*100, 2);
+                            }else{
+                              $percentrecoveredbycountry = 0;
+                            }
+                            
                             ?>
                         <tr>
                           <td>
