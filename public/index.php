@@ -10,6 +10,11 @@ use GuzzleHttp\Psr7\ServerRequest;
 
 require dirname(__DIR__) . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
 
-$init = new Init([HomeModule::class,ApiDataModule::class,MapModule::class,AboutModule::class]);
+$listmodules = [HomeModule::class,
+                ApiDataModule::class,
+                MapModule::class,
+                AboutModule::class];
+
+$init = new Init($listmodules);
 $response = $init->run(ServerRequest::fromGlobals());
 send($response);
