@@ -13,6 +13,7 @@ class MapModule
     public function __construct(Router $router)
     {
         $this->renderer = new Renderer();
+        $this->renderer->addPath("map",dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "views");
         $router->get("/map", [$this,"index"], "map.page");
     }
 

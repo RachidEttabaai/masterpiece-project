@@ -13,6 +13,7 @@ class ApiDataModule
     public function __construct(Router $router)
     {
         $this->renderer = new Renderer();
+        $this->renderer->addPath("data",dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "views");
         $router->get("/data", [$this,"index"], "data.page");
     }
 

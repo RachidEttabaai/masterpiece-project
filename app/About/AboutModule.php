@@ -13,6 +13,7 @@ class AboutModule
     public function __construct(Router $router)
     {
         $this->renderer = new Renderer();
+        $this->renderer->addPath("about",dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "views");
         $router->get("/about", [$this,"index"], "about.page");
     }
 

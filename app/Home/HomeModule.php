@@ -14,6 +14,7 @@ class HomeModule
     public function __construct(Router $router)
     {
         $this->renderer = new Renderer();
+        $this->renderer->addPath("index",dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "views");
         $router->get("/index", [$this,"index"], "home.page");
     }
 

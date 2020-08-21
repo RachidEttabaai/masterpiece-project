@@ -30,6 +30,20 @@ require_once 'layout' . DIRECTORY_SEPARATOR . "header.php";
 
         </div>
 
+        <div class="container text-center mt-4 mb-2">
+
+          <h2>
+            <em class="fa fa-link" aria-hidden="true"></em>
+            Source
+          </h2>
+
+          <ul class="list-group">
+            <li class="list-group-item"><a href="https://covid19api.com/" target="_blank" title="click on the link to access to the COVID19 API">COVID19 API</a></li>
+            <li class="list-group-item"><a href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" target="_blank" title="click on the link to access to the COVID19 API documentation">COVID19 API Documentation</a></li>
+          </ul>
+
+        </div>
+
     </main>
   </div>
 </div>

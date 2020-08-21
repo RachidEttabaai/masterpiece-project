@@ -27,7 +27,7 @@ les données afin de suivre l'évolution de la pandémié au niveau mondial et/o
 * Afficher les données dans un tableau et/ou sur une carte via une interface web responsive
 * Filtrage des données en fonction de chaque pays
 
-### Ètapes
+### Ètapes du projet
 
 1. Analyse de l'API à l'aide du lien suivant <https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest#intro>
 2. Réaliser le(s) script(s) permettant d'interroger l'API
@@ -36,3 +36,11 @@ les données afin de suivre l'évolution de la pandémié au niveau mondial et/o
 ### Bonus
 
 * Tests unitaires (PHPUnit)
+
+
+### Ètapes pour utiliser ce projet en local
+
+* git clone <https://gitlab.com/rachid_ettabaai/masterpiece-project.git/>
+* cd masterpiece-project/
+* composer install
+* php -S localhost:8080 -t public/
