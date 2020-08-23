@@ -6,7 +6,8 @@
         "zendframework/zend-expressive-fastroute": "2.1.2",
         "zendframework/zend-expressive-router": "2.3.0",
         "http-interop/http-middleware": "0.5.0",
-        "http-interop/response-sender": "^1.0"
+        "http-interop/response-sender": "^1.0",
+        "kevinrob/guzzle-cache-middleware": "^3.3"
     },
     "authors": [{
         "name": "Rachid ETTABAAI",

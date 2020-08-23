@@ -3,8 +3,10 @@
 namespace App\Api;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Exception\ServerException;
+use Kevinrob\GuzzleCache\CacheMiddleware;
 
 class Api
 {
@@ -13,10 +15,14 @@ class Api
 
     private $guzzlehttp;
 
+    private $stack;
+
     public function __construct(string $apiurl)
     {
+        $this->stack = HandlerStack::create();
+        $this->stack->push(new CacheMiddleware(), 'cache');
         $this->apiurl = $apiurl;
-        $this->guzzlehttp = new Client();
+        $this->guzzlehttp = new Client(['handler' => $this->stack]);
     }
 
     /**
