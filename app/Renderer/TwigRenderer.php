@@ -18,10 +18,19 @@ class TwigRenderer implements RendererInterface
 
         $this->loader = new FilesystemLoader($defaultPath);
         $this->twig = new Environment($this->loader,[]);
+
+        $vardumpfunction = new TwigFunction("var_dump",function($value){
+            echo "<pre>";
+            var_dump($value);
+            echo "</pre>";
+        });
+        
         $includefunction = new TwigFunction("includefct",function($filename,$assetfolder){
             include(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . $assetfolder . DIRECTORY_SEPARATOR . $filename);
         });
+
         $this->twig->addFunction($includefunction);
+        $this->twig->addFunction($vardumpfunction);
     }
 
     public function addPath(string $namespace, ?string $path = null): void
