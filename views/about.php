@@ -39,8 +39,9 @@ require_once 'layout' . DIRECTORY_SEPARATOR . "header.php";
 
           <ul class="list-group">
             <li class="list-group-item"><a href="https://covid19api.com/" target="_blank" title="click on the link to access to the COVID19 API">COVID19 API</a></li>
-            <li class="list-group-item"><a href="https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest" target="_blank" title="click on the link to access to the COVID19 API documentation">COVID19 API Documentation</a></li>
+            <li class="list-group-item"><a href="https://en.wikipedia.org/wiki/COVID-19_pandemic" target="_blank" title="click on the link to access to the COVID19 API pandemic definition">COVID19 Pandemic Definition</a></li>
           </ul>
+
 
         </div>
 
