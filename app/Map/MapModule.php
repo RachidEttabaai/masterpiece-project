@@ -38,6 +38,6 @@ class MapModule
         }
 
         return $this->renderer->render("map",["results" => $results,
-                                                           "errorsresults" => $errorsresults]);
+                                              "errorsresults" => $errorsresults]);
     }
 }
