@@ -196,14 +196,12 @@
                                     </td>
                                     <td>
                                         <strong>
-                                        <em class="text-warning">
-                                            +
+                                        <em class="text-warning">     
                                             {% if percentconfirmedbycountry != 0 %}
-                                                {{ percentconfirmedbycountry|round(2,"floor") }}
+                                               +{{ percentconfirmedbycountry|round(2,"floor") }}%
                                             {% else %}
-                                                {{ percentconfirmedbycountry }}
+                                                +{{ percentconfirmedbycountry }}%
                                             {% endif %}
-                                            %
                                         </em>
                                         </strong>
                                     </td>
@@ -223,14 +221,12 @@
                                     </td>
                                     <td>
                                         <strong>
-                                        <em class="text-danger">
-                                           +
+                                        <em class="text-danger">    
                                             {% if percentdeathbycountry != 0 %}
-                                                {{ percentdeathbycountry|round(2,"floor") }}
+                                                +{{ percentdeathbycountry|round(2,"floor") }}%
                                             {% else %}
-                                                {{ percentdeathbycountry }}
+                                                +{{ percentdeathbycountry }}%
                                             {% endif %}
-                                            %
                                         </em>
                                         </strong>
                                     </td>
@@ -250,14 +246,12 @@
                                     </td>
                                     <td>
                                         <strong>
-                                        <em class="text-success">
-                                            +
+                                        <em class="text-success">   
                                             {% if percentrecoveredbycountry != 0 %}
-                                                {{ percentrecoveredbycountry|round(2,"floor") }}
+                                                +{{ percentrecoveredbycountry|round(2,"floor") }}%
                                             {% else %}
-                                                {{ percentrecoveredbycountry }}
+                                                +{{ percentrecoveredbycountry }}%
                                             {% endif %}
-                                            %
                                         </em>
                                         </strong>
                                     </td>
