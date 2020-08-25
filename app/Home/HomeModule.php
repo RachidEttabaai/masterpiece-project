@@ -3,7 +3,7 @@
 namespace App\Home;
 
 use App\Router\Router;
-use App\Renderer\Renderer;
+use App\Renderer\RendererInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class HomeModule
@@ -11,9 +11,9 @@ class HomeModule
 
     private $renderer;
 
-    public function __construct(Router $router)
+    public function __construct(Router $router,RendererInterface $renderer)
     {
-        $this->renderer = new Renderer();
+        $this->renderer = $renderer;
         $this->renderer->addPath("index",dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "views");
         $router->get("/index", [$this,"index"], "home.page");
     }

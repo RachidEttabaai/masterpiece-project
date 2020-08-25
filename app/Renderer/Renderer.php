@@ -2,11 +2,19 @@
 
 namespace App\Renderer;
 
-class Renderer
+class Renderer implements RendererInterface
 {
     const NAMESPACE_BYDEFAULT = "__MAIN";
 
     private $paths = [];
+
+    public function __construct(?string $defaultPath = null)
+    {
+       if(!is_null($defaultPath)){
+            $this->addPath($defaultPath);
+       }
+       
+    }
 
     public function addPath(string $namespace,?string $path = null): void
     {
@@ -17,7 +25,7 @@ class Renderer
         }
     }
 
-    public function render(string $view): string
+    public function render(string $view,array $params = []): string
     {
         $path = $this->paths[$view] . DIRECTORY_SEPARATOR . $view . ".php";
 
