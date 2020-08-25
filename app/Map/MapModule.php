@@ -21,7 +21,23 @@ class MapModule
     public function index(ServerRequestInterface $request): string
     {
         $summary = new Summary("https://api.covid19api.com/summary");
-        $results = $summary->getSummaryFromAPI()["Countries"];
-        return $this->renderer->render("map",["results" => $results]);
+        $results = $summary->getSummaryFromAPI();
+
+        if(array_key_exists("Countries", $results))
+        {
+            $results = $results["Countries"];
+        }else{
+            $results = [];
+        }
+
+        if(array_key_exists('error', $results))
+        {
+            $errorsresults = ["error_msg" => "Temporary unavailability of API data for showing the map. Please come back in a moment.We apologize for the inconvenience."];
+        }else{
+            $errorsresults = [];
+        }
+
+        return $this->renderer->render("map",["results" => $results,
+                                                           "errorsresults" => $errorsresults]);
     }
 }

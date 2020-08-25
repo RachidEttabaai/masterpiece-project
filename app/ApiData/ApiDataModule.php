@@ -23,19 +23,19 @@ class ApiDataModule
         $summary = new Summary("https://api.covid19api.com/summary");
         $results = $summary->getSummaryFromAPI();
         
-        if($results["Global"]){
+        if(array_key_exists("Global", $results)){
             $globalresults = $results["Global"];
         }else{
             $globalresults = [];
         }
 
-        if($results["Countries"]){
+        if(array_key_exists("Countries", $results)){
             $countriesresults = $results["Countries"];
         }else{
             $countriesresults = [];
         }
 
-        if(array_key_exists('error', $results))
+        if(array_key_exists("error", $results))
         {
             $errorsresults = ["error_msg" => "Temporary unavailability of API data. Please come back in a moment.We apologize for the inconvenience."];
         }else{
