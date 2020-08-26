@@ -2,9 +2,7 @@
 
 {% block stylesheet %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jvectormap/2.0.5/jquery-jvectormap.css"/>
-<style>
-  {{ includefct("map.css","css") }}
-</style>
+
 {% endblock %}
 
 {% block title %} -  Map{% endblock %}
@@ -88,13 +86,5 @@
 {% endblock %}
 
 {% block javascript %}
-  <script type="text/javascript">
-      {{ includefct("jquery-jvectormap-2.0.5.min.js","js") }}
-  </script>
-  <script type="text/javascript">
-      {{ includefct("jquery-jvectormap-world-mill.js","js") }}
-  </script>
-  <script type="text/javascript">
-      {{ includefct("map.js","js") }}
-  </script>
+ 
 {% endblock %}

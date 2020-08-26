@@ -1,0 +1,41 @@
+{
+    "name": "covid19dashboard",
+    "version": "1.0.0",
+    "description": "masterpiece project (dashboard for covid19 tracking)",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Bienvenue sur npm\"",
+        "webpack": "webpack",
+        "watch": "webpack --watch",
+        "dashboard_webpack": "webpack-dashboard -- webpack",
+        "dashboard_watch": "webpack-dashboard -- webpack --watch"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://gitlab.com/rachid_ettabaai/masterpiece-project.git"
+    },
+    "author": "ETTABAAI Rachid",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://gitlab.com/rachid_ettabaai/masterpiece-project/issues"
+    },
+    "homepage": "https://gitlab.com/rachid_ettabaai/masterpiece-project#readme",
+    "dependencies": {
+        "@babel/core": "^7.11.4",
+        "babel-loader": "^8.1.0",
+        "bootstrap": "^4.5.2",
+        "css-loader": "^4.2.2",
+        "datatables.net": "^1.10.21",
+        "font-awesome": "^4.7.0",
+        "jquery": "^3.5.1",
+        "jvectormap-content": "^0.1.0",
+        "jvectormap-next": "^3.1.1",
+        "popper": "^1.0.1",
+        "sass-loader": "^10.0.1",
+        "serialize-javascript": "^4.0.0",
+        "style-loader": "^1.2.1",
+        "webpack": "^4.44.1",
+        "webpack-cli": "^3.3.12",
+        "webpack-dashboard": "^3.2.1"
+    }
+}

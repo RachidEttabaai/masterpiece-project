@@ -1,3 +1,8 @@
+let $ = require("jquery");
+
+require('jvectormap-next')($);
+$.fn.vectorMap('addMap', 'world_mill', require('jvectormap-content/world-mill'));
+
 $(document).ready(function() {
 
     $("#world-map-markers").vectorMap({
