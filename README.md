@@ -43,4 +43,6 @@ les données afin de suivre l'évolution de la pandémié au niveau mondial et/o
 * git clone <https://gitlab.com/rachid_ettabaai/masterpiece-project.git/>
 * cd masterpiece-project/
 * composer install
+* npm install
+* npm run webpack
 * php -S localhost:8080 -t public/
