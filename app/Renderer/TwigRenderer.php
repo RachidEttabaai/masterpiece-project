@@ -19,30 +19,32 @@ class TwigRenderer implements RendererInterface
         $this->loader = new FilesystemLoader($defaultPath);
         $this->twig = new Environment($this->loader,[]);
 
-        $vardumpfunction = new TwigFunction("var_dump",function($value){
+        $this->addTwigFunction("var_dump",function($value){
             echo "<pre>";
             var_dump($value);
             echo "</pre>";
         });
 
-        $printrfunction = new TwigFunction("print_r",function($value){
+        $this->addTwigFunction("print_r",function($value){
             echo "<pre>";
             print_r($value);
             echo "</pre>";
         });
         
-        $includefunction = new TwigFunction("includefct",function($filename,$assetfolder){
+        $this->addTwigFunction("includefct",function($filename,$assetfolder){
             include(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . $assetfolder . DIRECTORY_SEPARATOR . $filename);
         });
 
-        $bundlejsfunction = new TwigFunction("bundlejs",function(){
+        $this->addTwigFunction("bundlejs",function(){
             include(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "bundle.js");
         });
 
-        $this->twig->addFunction($includefunction);
-        $this->twig->addFunction($vardumpfunction);
-        $this->twig->addFunction($printrfunction);
-        $this->twig->addFunction($bundlejsfunction);
+    }
+
+    private function addTwigFunction(string $nametwigfct,callable $callable): void
+    {
+        $twigfct = new TwigFunction($nametwigfct,$callable);
+        $this->twig->addFunction($twigfct);
     }
 
     public function addPath(string $namespace, ?string $path = null): void
