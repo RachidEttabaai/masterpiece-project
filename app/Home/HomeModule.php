@@ -2,6 +2,7 @@
 
 namespace App\Home;
 
+use App\Country\Country;
 use App\Router\Router;
 use App\Renderer\RendererInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -20,6 +21,8 @@ class HomeModule
 
     public function index(ServerRequestInterface $request): string
     {
-        return $this->renderer->render("index");
+        $country = new Country(null);
+        $countries = $country->getAllCountriesFromDB();
+        return $this->renderer->render("index",["countries" => $countries]);
     }
 }

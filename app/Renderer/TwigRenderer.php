@@ -24,6 +24,12 @@ class TwigRenderer implements RendererInterface
             var_dump($value);
             echo "</pre>";
         });
+
+        $printrfunction = new TwigFunction("print_r",function($value){
+            echo "<pre>";
+            print_r($value);
+            echo "</pre>";
+        });
         
         $includefunction = new TwigFunction("includefct",function($filename,$assetfolder){
             include(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . $assetfolder . DIRECTORY_SEPARATOR . $filename);
@@ -35,6 +41,7 @@ class TwigRenderer implements RendererInterface
 
         $this->twig->addFunction($includefunction);
         $this->twig->addFunction($vardumpfunction);
+        $this->twig->addFunction($printrfunction);
         $this->twig->addFunction($bundlejsfunction);
     }
 

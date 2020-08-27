@@ -30,6 +30,7 @@ class Renderer implements RendererInterface
         $path = $this->paths[$view] . DIRECTORY_SEPARATOR . $view . ".php";
 
         ob_start();
+        extract($params);
         require($path);
         return ob_get_clean();
     }
