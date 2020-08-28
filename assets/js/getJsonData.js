@@ -19,13 +19,17 @@ function apirequest(url) {
                 let cardtext = "<div class='card-text'>" + news[i].description + "</div>";
                 let cardtextsmall = "<div class='card-text'><small class='text-muted'>" + new Date(news[i].publishedAt).toString() + " by " + news[i].source.name + "</small></div>";
                 let cardbody = "<div class='card-body'>" + cardtitle + cardtext + cardtextsmall + "</div>";
-                let cardcontentnews = "<div class='card'>" + cardimg + cardbody + "</div>";
+                let cardcontentnews = "<div class='card mb-4' style='min-width: 18rem;'>" + cardimg + cardbody + "</div>";
+
+                if (i % 3 == 0) {
+                    cardnews.push("<div class='w-100 d-lg-none mt-4'></div>")
+                }
 
                 cardnews.push(cardcontentnews);
             }
 
             $("#news").append($("<div/>", {
-                "class": "card-columns",
+                "class": "card-deck",
                 html: cardnews.join("")
             }));
         }
