@@ -14,28 +14,16 @@
 
             <div class="container text-center mb-2">
 
-                <h2>COVID19 News</h2>
+                <h2>News</h2>
 
-                <form id="newsfilter">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="select-country">Filter by country</label>
-                        </div>
-                        <select class="custom-select" id="select-country">
-                            <option value="none" selected>Choose...</option>
-                            {% for country in countries %}
-                                <option value="{{ country.country_code }}">{{ country.country_name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </form>
+                {# {% for country in countries %}
+                    {{ print_r(country) }}
+                {% endfor %} #}
 
-            </div>
-
-            <div class="container text-center" id="news">
             </div>
     </main>
-
+  
+ 
 {% endblock %}
 
 {% block javascript %}
