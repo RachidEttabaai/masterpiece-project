@@ -1,7 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
 const webpack_dashboard = require("webpack-dashboard/plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 let entryfile = "./assets/js/index.js";
 let bundlefile = "./bundle.js";
@@ -16,7 +15,7 @@ let config = {
         path: path.resolve(__dirname, publicfolder),
         filename: bundlefile
     },
-    plugins: [new webpack_dashboard(), new MiniCssExtractPlugin()],
+    plugins: [new webpack_dashboard()],
     module: {
         rules: [{
                 test: /\.js$/,
@@ -27,7 +26,7 @@ let config = {
             },
             {
                 test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader']
+                use: ['style-loader', 'css-loader']
             },
             {
                 test: /\.scss$/,
