@@ -6,3 +6,4 @@ import "../css/map.css";
 
 import "./datatable";
 import "./map";
+import "./news";
