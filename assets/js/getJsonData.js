@@ -5,7 +5,7 @@ function apirequest(url) {
     $.getJSON(url, function(data) {
         let news = data.articles;
 
-        if (!$.isArray(news) || !news.length) {
+        if (!$.isArray(news) || news.length == 0) {
             $("#news").append($("<div/>", {
                 "class": "alert alert-danger",
                 html: "No news found"
