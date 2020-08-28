@@ -24,7 +24,7 @@ function apirequest(url) {
                 cardnews.push(cardcontentnews);
             }
 
-            $("#news").replaceWith($("<div/>", {
+            $("#news").append($("<div/>", {
                 "class": "card-columns",
                 html: cardnews.join("")
             }));
