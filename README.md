@@ -3,7 +3,7 @@ Brief Projet Chef d'oeuvre
 
 L'application consistera à importer les données de l'API Coronavirus COVID19 <https://api.covid19api.com/>
 et de proposer une interface web sous la forme d'un tableau de bord pour afficher
-les données afin de suivre l'évolution de la pandémié au niveau mondial et/ou en fonction de chaque pays.
+les données afin de suivre l'évolution de la pandémié mais aussi l'actualité lié à la pandémie  au niveau mondial et/ou en fonction de chaque pays.
 
 ## Objectifs
 
