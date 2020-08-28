@@ -39,6 +39,10 @@ class TwigRenderer implements RendererInterface
             include(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "bundle.js");
         });
 
+        $this->addTwigFunction("maincss",function(){
+            include(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "main.css");
+        });
+
     }
 
     private function addTwigFunction(string $nametwigfct,callable $callable): void
