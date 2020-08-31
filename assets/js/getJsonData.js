@@ -8,8 +8,15 @@ function renderNews(newscontent) {
 
         let cardimg = "<img class='card-img-top img-fluid' src='" + newscontent[i].urlToImage + "' title='" + newscontent[i].title + "'/>";
         let cardtitle = "<h4 class='card-title'><a href='" + newscontent[i].url + "' target='_blank'>" + newscontent[i].title + "</a></h4>";
-        let cardtext = "<div class='card-text'>" + newscontent[i].description + "</div>";
-        let cardtextsmall = "<div class='card-text'><small class='text-muted'>" + new Date(newscontent[i].publishedAt).toString() + " by " + newscontent[i].source.name + "</small></div>";
+
+        let cardtext = "";
+        if (newscontent[i].description) {
+            let cardtext = "<div class='card-text'>" + newscontent[i].description + "</div>";
+        } else {
+            let cardtext = "<div class='card-text'></div>";
+        }
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', 'hour': 'numeric', 'minute': 'numeric' };
+        let cardtextsmall = "<div class='card-text'><small class='text-muted'>Published on " + new Date(newscontent[i].publishedAt).toLocaleDateString("en-EN", options) + " by " + newscontent[i].source.name + "</small></div>";
         let cardbody = "<div class='card-body'>" + cardtitle + cardtext + cardtextsmall + "</div>";
         let cardcontentnews = "<div class='card mb-4' style='min-width: 18rem;'>" + cardimg + cardbody + "</div>";
 
