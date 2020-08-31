@@ -39,7 +39,6 @@ function checkNews(newscontent) {
 
 }
 
-
 function apirequest(url) {
 
     $.getJSON(url, function(data) {
