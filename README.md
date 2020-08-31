@@ -42,6 +42,8 @@ les données afin de suivre l'évolution de la pandémié mais aussi l'actualit�
 
 * git clone <https://gitlab.com/rachid_ettabaai/masterpiece-project.git/>
 * cd masterpiece-project/
+* mysql --user="username" -p < "files/schema.sql"
+* (avec les identifants de connexion pour la BDD comme root par ex pour le username et le mdp défini)
 * composer install
 * npm install
 * npm run dashboard_watch
