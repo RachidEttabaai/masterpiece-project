@@ -19,10 +19,24 @@ class HomeModule
         $router->get("/index", [$this,"index"], "home.page");
     }
 
+    private function checkCountryinDB(Country $country) : array
+    {
+        if($country->countCountriesinDB() === 0){
+            $country = new Country("https://api.covid19api.com/countries");
+            $insertcountry = $country->insertCountriesDatastoDB();
+            $rescountries = $country->getAllCountriesFromDB();
+        }else{
+            $rescountries = $country->getAllCountriesFromDB();
+        }
+
+        return $rescountries;
+    }
+
     public function index(ServerRequestInterface $request): string
     {
         $country = new Country(null);
-        $countries = $country->getAllCountriesFromDB();
+        $countries = $this->checkCountryinDB($country);
+        
         return $this->renderer->render("index",["countries" => $countries]);
     }
 }
