@@ -1,39 +1,55 @@
 let $ = require("jquery");
 
+function renderNews(newscontent) {
+
+    let cardnews = [];
+
+    for (let i in newscontent) {
+
+        let cardimg = "<img class='card-img-top img-fluid' src='" + newscontent[i].urlToImage + "' title='" + newscontent[i].title + "'/>";
+        let cardtitle = "<h4 class='card-title'><a href='" + newscontent[i].url + "' target='_blank'>" + newscontent[i].title + "</a></h4>";
+        let cardtext = "<div class='card-text'>" + newscontent[i].description + "</div>";
+        let cardtextsmall = "<div class='card-text'><small class='text-muted'>" + new Date(newscontent[i].publishedAt).toString() + " by " + newscontent[i].source.name + "</small></div>";
+        let cardbody = "<div class='card-body'>" + cardtitle + cardtext + cardtextsmall + "</div>";
+        let cardcontentnews = "<div class='card mb-4' style='min-width: 18rem;'>" + cardimg + cardbody + "</div>";
+
+        if (i % 3 == 0) {
+            cardnews.push("<div class='w-100 d-lg-none mt-4'></div>")
+        }
+
+        cardnews.push(cardcontentnews);
+    }
+
+    $("#news").append($("<div/>", {
+        "class": "card-deck",
+        html: cardnews.join("")
+    }));
+}
+
+function checkNews(newscontent) {
+
+    if (!$.isArray(newscontent) || newscontent.length == 0) {
+        $("#news").append($("<div/>", {
+            "class": "alert alert-danger",
+            html: "No news found"
+        }));
+    } else {
+        renderNews(newscontent);
+    }
+
+}
+
+
 function apirequest(url) {
 
     $.getJSON(url, function(data) {
+
         let news = data.articles;
 
-        if (!$.isArray(news) || news.length == 0) {
-            $("#news").append($("<div/>", {
-                "class": "alert alert-danger",
-                html: "No news found"
-            }));
-        } else {
-            let cardnews = [];
-            for (let i in news) {
-                //console.log(news[i]);
-                let cardimg = "<img class='card-img-top img-fluid' src='" + news[i].urlToImage + "' title='" + news[i].title + "'/>";
-                let cardtitle = "<h4 class='card-title'><a href='" + news[i].url + "' target='_blank'>" + news[i].title + "</a></h4>";
-                let cardtext = "<div class='card-text'>" + news[i].description + "</div>";
-                let cardtextsmall = "<div class='card-text'><small class='text-muted'>" + new Date(news[i].publishedAt).toString() + " by " + news[i].source.name + "</small></div>";
-                let cardbody = "<div class='card-body'>" + cardtitle + cardtext + cardtextsmall + "</div>";
-                let cardcontentnews = "<div class='card mb-4' style='min-width: 18rem;'>" + cardimg + cardbody + "</div>";
-
-                if (i % 3 == 0) {
-                    cardnews.push("<div class='w-100 d-lg-none mt-4'></div>")
-                }
-
-                cardnews.push(cardcontentnews);
-            }
-
-            $("#news").append($("<div/>", {
-                "class": "card-deck",
-                html: cardnews.join("")
-            }));
-        }
+        checkNews(news);
     });
+
+
 }
 export function getJsonData(optionselected) {
 
