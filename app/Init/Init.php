@@ -20,15 +20,38 @@ class Init
      */
     private $modules = [];
 
+    /**
+     * Router
+     *
+     * @var Router
+     */
     private $router;
 
-    public function __construct(array $modules = [],array $dependencies = [])
+    public function __construct(array $modules = [], array $dependencies = [])
     {
         $this->router = new Router();
 
-        foreach ($modules as $module) {
-            $this->modules[] = new $module($this->router,$dependencies["renderer"]);
+        if (!empty($modules)) {
+
+            foreach ($modules as $module) {
+                $this->modules[] = new $module($this->router, $dependencies["renderer"]);
+            }
         }
+    }
+
+    /**
+     * URI Redirection
+     *
+     * @param integer $statusCode
+     * @param string $uri
+     * @return Response
+     */
+    private function redirectUri(int $statusCode, string $uri): Response
+    {
+        $response = new Response();
+        $response = $response->withStatus($statusCode);
+        $response = $response->withHeader("Location", $uri);
+        return $response;
     }
 
     /**
@@ -41,21 +64,15 @@ class Init
     {
 
         $uri = $request->getUri()->getPath();
-        
+
         if (!empty($uri) && $uri[-1] === "/") {
-            $response = new Response();
-            $response = $response->withStatus(301);
-            $response = $response->withHeader("Location", "/index");
-            return $response;
+            $this->redirectUri(301, substr($uri, 0, -1));
         }
 
         $route = $this->router->match($request);
 
         if (is_null($route)) {
-            $response = new Response();
-            $response = $response->withStatus(301);
-            $response = $response->withHeader("Location", "/index");
-            return $response;
+            $this->redirectUri(301, "/index");
         }
 
         $response = call_user_func_array($route->getCallable(), [$request]);

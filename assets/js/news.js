@@ -4,18 +4,22 @@ import { getJsonData } from "./getJsonData";
 
 $(document).ready(function() {
 
-    let countrySelected = $("#select-country option:selected").val();
+    if ($("#select-country").length) {
 
-    getJsonData(countrySelected);
+        let countrySelected = $("#select-country option:selected").val();
 
-    $("#select-country").change(function() {
+        getJsonData(countrySelected);
 
-        $(this).find("option:selected").each(function() {
+        $("#select-country").change(function() {
 
-            $("#news").empty();
-            getJsonData($(this).val());
+            $(this).find("option:selected").each(function() {
+
+                $("#news").empty();
+                getJsonData($(this).val());
+            });
+
         });
 
-    });
+    }
 
 });
