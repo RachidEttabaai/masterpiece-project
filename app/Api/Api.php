@@ -28,7 +28,7 @@ class Api
     /**
      * Get the value of guzzlehttp
      */
-    public function getGuzzlehttp()
+    public function getGuzzlehttp(): Client
     {
         return $this->guzzlehttp;
     }
@@ -36,11 +36,11 @@ class Api
     /**
      * Get the value of apiurl
      */
-    public function getApiurl()
+    public function getApiurl(): string
     {
         return $this->apiurl;
     }
-    
+
     /**
      * Doing an api request and get datas from the api
      *
@@ -62,15 +62,13 @@ class Api
                     return json_decode($response->getBody(), true);
                 }
             );
-    
-            $res = $promise->wait();
 
+            $res = $promise->wait();
         } catch (ServerException $e) {
-            
+
             $res = ["error" => $e->getMessage()];
         }
 
         return $res;
-
     }
 }
