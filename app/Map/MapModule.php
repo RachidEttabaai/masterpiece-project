@@ -18,22 +18,24 @@ class MapModule
         $router->get("/map", [$this, "map"], "map.page");
     }
 
+    private function keyexistinarray(string $key, array $tab): array
+    {
+        if (array_key_exists($key, $tab)) {
+            $tab = $tab[$key];
+        } else {
+            $tab = [];
+        }
+
+        return $tab;
+    }
+
     public function map(ServerRequestInterface $request): string
     {
         $summary = new Summary("https://api.covid19api.com/summary");
         $results = $summary->getSummaryFromAPI();
 
-        if (array_key_exists("Countries", $results)) {
-            $results = $results["Countries"];
-        } else {
-            $results = [];
-        }
-
-        if (array_key_exists('error', $results)) {
-            $errorsresults = ["error_msg" => "Temporary unavailability of API data for showing the map. Please come back in a moment.We apologize for the inconvenience."];
-        } else {
-            $errorsresults = [];
-        }
+        $results = $this->keyexistinarray("Countries", $results);
+        $errorsresults = $this->keyexistinarray("error", $results);
 
         return $this->renderer->render("map", [
             "results" => $results,

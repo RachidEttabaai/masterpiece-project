@@ -18,28 +18,27 @@ class ApiDataModule
         $router->get("/data", [$this, "data"], "data.page");
     }
 
+    private function keyexistinarray(string $key, array $tab): array
+    {
+        if (array_key_exists($key, $tab) && $key != "error") {
+            $tab = $tab[$key];
+        } elseif ($key == "error") {
+            $tab = ["error_msg" => "Temporary unavailability of API data. Please come back in a moment.We apologize for the inconvenience."];
+        } else {
+            $tab = [];
+        }
+
+        return $tab;
+    }
+
     public function data(ServerRequestInterface $request): string
     {
         $summary = new Summary("https://api.covid19api.com/summary");
         $results = $summary->getSummaryFromAPI();
 
-        if (array_key_exists("Global", $results)) {
-            $globalresults = $results["Global"];
-        } else {
-            $globalresults = [];
-        }
-
-        if (array_key_exists("Countries", $results)) {
-            $countriesresults = $results["Countries"];
-        } else {
-            $countriesresults = [];
-        }
-
-        if (array_key_exists("error", $results)) {
-            $errorsresults = ["error_msg" => "Temporary unavailability of API data. Please come back in a moment.We apologize for the inconvenience."];
-        } else {
-            $errorsresults = [];
-        }
+        $globalresults = $this->keyexistinarray("Global", $results);
+        $countriesresults = $this->keyexistinarray("Countries", $results);
+        $errorsresults = $this->keyexistinarray("error", $results);
 
         return $this->renderer->render("data", [
             "globalresults" => $globalresults,
