@@ -66,23 +66,25 @@ class Init
         $uri = $request->getUri()->getPath();
 
         if (!empty($uri) && $uri[-1] === "/") {
-            $this->redirectUri(301, substr($uri, 0, -1));
+            //echo rtrim($uri, "/");
+            $this->redirectUri(301, rtrim($uri, "/"));
         }
 
         $route = $this->router->match($request);
 
         if (is_null($route)) {
             $this->redirectUri(301, "/index");
-        }
-
-        $response = call_user_func_array($route->getCallable(), [$request]);
-
-        if (is_string($response)) {
-            return new Response(200, [], $response);
-        } elseif ($response instanceof ResponseInterface) {
-            return $response;
         } else {
-            throw new \Exception("Houston we have got a probleme!!!");
+
+            $response = call_user_func_array($route->getCallable(), [$request]);
+
+            if (is_string($response)) {
+                return new Response(200, [], $response);
+            } elseif ($response instanceof ResponseInterface) {
+                return $response;
+            } else {
+                throw new \Exception("Houston we have got a probleme!!!");
+            }
         }
     }
 }
