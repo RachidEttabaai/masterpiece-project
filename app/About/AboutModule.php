@@ -10,14 +10,14 @@ class AboutModule
 {
     private $renderer;
 
-    public function __construct(Router $router,RendererInterface $renderer)
+    public function __construct(Router $router, RendererInterface $renderer)
     {
         $this->renderer = $renderer;
-        $this->renderer->addPath("about",dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "views");
-        $router->get("/about", [$this,"index"], "about.page");
+        $this->renderer->addPath("about", dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "views");
+        $router->get("/about", [$this, "about"], "about.page");
     }
 
-    public function index(ServerRequestInterface $request): string
+    public function about(ServerRequestInterface $request): string
     {
         return $this->renderer->render("about");
     }
