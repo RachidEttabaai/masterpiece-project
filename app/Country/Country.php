@@ -90,12 +90,7 @@ class Country extends MySQL
      */
     public function countCountriesinDB(): int
     {
-        $querycountcountries = "SELECT COUNT(*) AS Nbcountries FROM Country";
-        $stmtcount = $this->pdo->prepare($querycountcountries);
-        $stmtcount->execute();
-        $countcountries = $stmtcount->fetch();
-        $stmtcount->closeCursor();
-        return $countcountries["Nbcountries"];
+        return $this->countquery("SELECT COUNT(*) AS Nbcountries FROM Country");
     }
 
     /**
