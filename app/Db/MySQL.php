@@ -8,7 +8,10 @@ use PDOException;
 
 class MySQL implements Db
 {
-    
+    /* 
+    Object representing a connection between PHP and a database server.
+    @var PDO|null 
+    */
     protected $pdo;
 
     public function __construct()
@@ -17,7 +20,7 @@ class MySQL implements Db
     }
 
     /**
-     * Connection to the database with PDO class
+     * Connection to the database with PDO object
      *
      * @param  string $dns
      * @param  string $user
@@ -32,7 +35,22 @@ class MySQL implements Db
         } catch (PDOException $ex) {
             die("Error while connection to the database !!!!!" . $ex->getMessage());
         }
-        
+
         return $connect;
+    }
+
+    /**
+     * Doing a select query and return query result
+     *
+     * @param string $sqlquery
+     * @return array
+     */
+    public function selectquery(string $sqlquery): array
+    {
+        $stmtquery = $this->pdo->query($sqlquery);
+        $stmtquery->execute();
+        $getresquery = $stmtquery->fetchAll();
+        $stmtquery->closeCursor();
+        return $getresquery;
     }
 }
