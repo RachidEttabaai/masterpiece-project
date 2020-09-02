@@ -46,7 +46,7 @@ class Router
         if ($result->isSuccess()) {
             return new Route(
                 $result->getMatchedRouteName(),
-                $result->getMatchedRoute()->getMiddleware(),
+                $result->getMatchedMiddleware(),
                 $result->getMatchedParams()
             );
         }
