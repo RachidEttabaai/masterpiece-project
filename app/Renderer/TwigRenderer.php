@@ -8,9 +8,18 @@ use Twig\TwigFunction;
 
 class TwigRenderer implements RendererInterface
 {
-
+    /**
+     * Stores the Twig configuration and renders templates.
+     *
+     * @var Environment
+     */
     private $twig;
 
+    /**
+     * Loads template from the filesystem.
+     *
+     * @var FilesystemLoader
+     */
     private $loader;
 
     public function __construct(string $defaultPath)
@@ -40,17 +49,38 @@ class TwigRenderer implements RendererInterface
         });
     }
 
+    /**
+     * Add a function and use it in a twig template
+     *
+     * @param string $nametwigfct
+     * @param callable $callable
+     * @return void
+     */
     private function addTwigFunction(string $nametwigfct, callable $callable): void
     {
         $twigfct = new TwigFunction($nametwigfct, $callable);
         $this->twig->addFunction($twigfct);
     }
 
+    /**
+     * Add a path to the loader template from the filesystem.
+     *
+     * @param string $namespace
+     * @param string|null $path
+     * @return void
+     */
     public function addPath(string $namespace, ?string $path = null): void
     {
         $this->loader->addPath($path, $namespace);
     }
 
+    /**
+     * Rendering a template with Twig
+     *
+     * @param string $view
+     * @param array $params
+     * @return string
+     */
     public function render(string $view, array $params = []): string
     {
         return $this->twig->render($view . ".twig", $params);

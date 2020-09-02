@@ -9,6 +9,11 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class ApiDataModule
 {
+    /**
+     * Interface renderer for page rendering
+     *
+     * @var RendererInterface
+     */
     private $renderer;
 
     public function __construct(Router $router, RendererInterface $renderer)
@@ -18,6 +23,13 @@ class ApiDataModule
         $router->get("/data", [$this, "data"], "data.page");
     }
 
+    /**
+     * Check if a key exists or not in a array
+     *
+     * @param string $key
+     * @param array $tab
+     * @return array
+     */
     private function keyexistinarray(string $key, array $tab): array
     {
         if (array_key_exists($key, $tab) && $key != "error") {
@@ -31,6 +43,12 @@ class ApiDataModule
         return $tab;
     }
 
+    /**
+     * Render a page according to the name of the view
+     *
+     * @param ServerRequestInterface $request
+     * @return string
+     */
     public function data(ServerRequestInterface $request): string
     {
         $summary = new Summary("https://api.covid19api.com/summary");
