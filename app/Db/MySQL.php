@@ -53,4 +53,13 @@ class MySQL implements Db
         $stmtquery->closeCursor();
         return $getresquery;
     }
+
+    public function countquery(string $sqlquery): int
+    {
+        $stmtcount = $this->pdo->prepare($sqlquery);
+        $stmtcount->execute();
+        $countcountries = $stmtcount->columnCount();
+        $stmtcount->closeCursor();
+        return $countcountries;
+    }
 }
