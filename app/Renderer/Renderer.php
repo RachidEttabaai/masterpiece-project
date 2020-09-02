@@ -36,9 +36,9 @@ class Renderer implements RendererInterface
      *
      * @param string $view
      * @param array $params
-     * @return string
+     * @return string|bool
      */
-    public function render(string $view, array $params = []): string
+    public function render(string $view, array $params = [])
     {
         $path = $this->paths[$view] . DIRECTORY_SEPARATOR . $view . ".php";
 
