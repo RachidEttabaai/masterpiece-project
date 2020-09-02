@@ -10,22 +10,35 @@ class Renderer implements RendererInterface
 
     public function __construct(?string $defaultPath = null)
     {
-       if(!is_null($defaultPath)){
+        if (!is_null($defaultPath)) {
             $this->addPath($defaultPath);
-       }
-       
+        }
     }
 
-    public function addPath(string $namespace,?string $path = null): void
+    /**
+     * Add a path for the rendering without a templating engine
+     *
+     * @param string $namespace
+     * @param string|null $path
+     * @return void
+     */
+    public function addPath(string $namespace, ?string $path = null): void
     {
-        if(is_null($path)){
+        if (is_null($path)) {
             $this->paths[self::NAMESPACE_BYDEFAULT] = $namespace;
-        }else{
+        } else {
             $this->paths[$namespace] = $path;
         }
     }
 
-    public function render(string $view,array $params = []): string
+    /**
+     * Rendering a template with output buffering functions
+     *
+     * @param string $view
+     * @param array $params
+     * @return string
+     */
+    public function render(string $view, array $params = []): string
     {
         $path = $this->paths[$view] . DIRECTORY_SEPARATOR . $view . ".php";
 
