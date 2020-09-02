@@ -7,7 +7,11 @@ use App\Db\MySQL;
 
 class Country extends MySQL
 {
-
+    /**
+     * API url
+     *
+     * @var string|null
+     */
     private $apiurlforcountries;
 
     public function __construct(?string $apiurlforcountries)
@@ -16,21 +20,23 @@ class Country extends MySQL
         $this->apiurlforcountries = $apiurlforcountries;
     }
 
-    private function getAllCountriesFromAPI(): array
+    /**
+     * Create structured associate table using API data before insert in the database
+     *
+     * @param array $apidatatables
+     * @return array
+     */
+    private function createDataTableBeforeInserttoDb(array $apidatatables): array
     {
-        
-        $countriesapi = new Api($this->getApiurlforcountries());
-        
-        $countries = $countriesapi->apirequest();
-
         $arrres = [];
 
-        foreach ($countries as $country) {
-            if ($country["ISO2"] != "AN") {
-                $coordonnesgpsforcountriesapi = new Api("https://restcountries.eu/rest/v2/alpha/".$country["ISO2"]);
-            
+        foreach ($apidatatables as $apidatatable) {
+
+            if ($apidatatable["ISO2"] != "AN") {
+                $coordonnesgpsforcountriesapi = new Api("https://restcountries.eu/rest/v2/alpha/" . $apidatatable["ISO2"]);
+
                 $coordonnesgpsforcountries = $coordonnesgpsforcountriesapi->apirequest();
-                
+
                 $latitude = $coordonnesgpsforcountries["latlng"][0];
                 $longitude = $coordonnesgpsforcountries["latlng"][1];
             } else {
@@ -38,28 +44,50 @@ class Country extends MySQL
                 $longitude = -69.060087;
             }
 
-            $countrydatas = ["country_name" => $country["Country"],
-                             "country_slug" => $country["Slug"],
-                             "country_code" => $country["ISO2"],
-                             "latitude" => $latitude,
-                             "longitude" => $longitude];
-            
+            $countrydatas = [
+                "country_name" => $apidatatable["Country"],
+                "country_slug" => $apidatatable["Slug"],
+                "country_code" => $apidatatable["ISO2"],
+                "latitude" => $latitude,
+                "longitude" => $longitude
+            ];
+
             array_push($arrres, $countrydatas);
         }
 
         return $arrres;
     }
 
-    public function getAllCountriesFromDB(): array
+    /**
+     * Get data from an API with using Client object from GuzzleHttp
+     *
+     * @return array
+     */
+    private function getAllCountriesFromAPI(): array
     {
-        $querygetallcountries = "SELECT * FROM Country ORDER BY country_name";
-        $stmtgetall = $this->pdo->prepare($querygetallcountries);
-        $stmtgetall->execute();
-        $getallcountries = $stmtgetall->fetchAll();
-        $stmtgetall->closeCursor();
-        return $getallcountries;
+
+        $countriesapi = new Api($this->getApiurlforcountries());
+
+        $countries = $countriesapi->apirequest();
+
+        return $this->createDataTableBeforeInserttoDb($countries);
     }
 
+    /**
+     * Get data from the table Country in the database
+     *
+     * @return array
+     */
+    public function getAllCountriesFromDB(): array
+    {
+        return $this->selectquery("SELECT * FROM Country ORDER BY country_name");
+    }
+
+    /**
+     * Get the count of records in the table Country in the database 
+     *
+     * @return integer
+     */
     public function countCountriesinDB(): int
     {
         $querycountcountries = "SELECT COUNT(*) AS Nbcountries FROM Country";
@@ -70,7 +98,12 @@ class Country extends MySQL
         return $countcountries["Nbcountries"];
     }
 
-    public function insertCountriesDatastoDB()
+    /**
+     * Insert data from an API in the database
+     *
+     * @return void
+     */
+    public function insertCountriesDatastoDB(): void
     {
 
         $countriesdatas = $this->getAllCountriesFromAPI();
@@ -92,6 +125,8 @@ class Country extends MySQL
 
     /**
      * Get the value of _apiurlforcountries
+     * 
+     * @return string|null
      */
     public function getApiurlforcountries()
     {
