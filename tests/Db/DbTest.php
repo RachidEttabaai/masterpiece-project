@@ -30,4 +30,18 @@ class DbTest extends TestCase
         $count = $this->pdo->countquery("SELECT COUNT(*) FROM Country");
         $this->assertLessThanOrEqual(248, $count);
     }
+
+    public function testGetResSelectQuery(): void
+    {
+        $resselect = $this->pdo->selectquery("SELECT * FROM Country");
+        $this->assertEquals(248, count($resselect));
+    }
+
+    public function testGetContentResSelectQuery(): void
+    {
+        $rescontentselect = $this->pdo->selectquery("SELECT * FROM Country WHERE country_name = 'Germany'");
+        $this->assertEquals(1, count($rescontentselect));
+        $this->assertIsArray($rescontentselect);
+        $this->assertArrayHasKey("0", $rescontentselect);
+    }
 }
