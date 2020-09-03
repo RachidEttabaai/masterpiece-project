@@ -100,20 +100,14 @@ class Country extends MySQL
      */
     public function insertCountriesDatastoDB(): void
     {
-
         $countriesdatas = $this->getAllCountriesFromAPI();
 
+        $insertcountry = "INSERT INTO Country(country_name,country_slug,country_code,latitude,longitude)
+                                 VALUES (:country_name,:country_slug,:country_code,:latitude,:longitude)";
+
         foreach ($countriesdatas as $countrydatas) {
-            $insertcountry = "INSERT INTO Country(country_name,country_slug,country_code,latitude,longitude)
-                                     VALUES (:country_name,:country_slug,:country_code,:latitude,:longitude)";
-            $pdostatementinsert = $this->pdo->prepare($insertcountry);
-            $pdostatementinsert->bindParam(":country_name", $countrydatas["country_name"]);
-            $pdostatementinsert->bindParam(":country_slug", $countrydatas["country_slug"]);
-            $pdostatementinsert->bindParam(":country_code", $countrydatas["country_code"]);
-            $pdostatementinsert->bindParam(":latitude", $countrydatas["latitude"]);
-            $pdostatementinsert->bindParam(":longitude", $countrydatas["longitude"]);
-            $pdostatementinsert->execute();
-            $pdostatementinsert->closeCursor();
+
+            $this->insertquery($insertcountry, $countrydatas);
         }
     }
 

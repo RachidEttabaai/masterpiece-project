@@ -42,24 +42,37 @@ class MySQL implements Db
     /**
      * Doing a select query and return query result
      *
-     * @param string $sqlquery
+     * @param string $selectsqlquery
      * @return array
      */
-    public function selectquery(string $sqlquery): array
+    public function selectquery(string $selectsqlquery): array
     {
-        $stmtquery = $this->pdo->query($sqlquery);
-        $stmtquery->execute();
-        $getresquery = $stmtquery->fetchAll();
-        $stmtquery->closeCursor();
+        $stmtselect = $this->pdo->query($selectsqlquery);
+        $stmtselect->execute();
+        $getresquery = $stmtselect->fetchAll();
+        $stmtselect->closeCursor();
         return $getresquery;
     }
 
-    public function countquery(string $sqlquery): int
+    /**
+     * Doing a select query for getting the count of records in a table
+     *
+     * @param string $countsqlquery
+     * @return integer
+     */
+    public function countquery(string $countsqlquery): int
     {
-        $stmtcount = $this->pdo->prepare($sqlquery);
+        $stmtcount = $this->pdo->prepare($countsqlquery);
         $stmtcount->execute();
         $countcountries = $stmtcount->columnCount();
         $stmtcount->closeCursor();
         return $countcountries;
+    }
+
+    public function insertquery(string $insertsqlquery, array $datas): void
+    {
+        $stmtinsert = $this->pdo->prepare($insertsqlquery);
+        $stmtinsert->execute($datas);
+        $stmtinsert->closeCursor();
     }
 }
