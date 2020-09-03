@@ -19,9 +19,15 @@ class DbTest extends TestCase
         $this->pdo = null;
     }
 
-    public function testIsCountQueryInt()
+    public function testIsCountQueryInt(): void
     {
         $count = $this->pdo->countquery("SELECT COUNT(*) FROM Country");
         $this->assertIsInt($count);
+    }
+
+    public function testGetCountQuery(): void
+    {
+        $count = $this->pdo->countquery("SELECT COUNT(*) FROM Country");
+        $this->assertLessThanOrEqual(248, $count);
     }
 }
