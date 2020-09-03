@@ -44,4 +44,11 @@ class DbTest extends TestCase
         $this->assertIsArray($rescontentselect);
         $this->assertArrayHasKey("0", $rescontentselect);
     }
+
+    public function testGetEmptyContentResSelectQuery(): void
+    {
+        $rescontentselect = $this->pdo->selectquery("SELECT * FROM Country WHERE country_name = 'Allemagne'");
+        $this->assertEquals(0, count($rescontentselect));
+        $this->assertEmpty($rescontentselect);
+    }
 }
