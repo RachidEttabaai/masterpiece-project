@@ -54,6 +54,6 @@ class HomeModule
         $country = new Country(null);
         $countries = $this->checkCountryinDB($country);
 
-        return $this->renderer->render("index", ["countries" => $countries]);
+        return $this->renderer->render("index", compact("countries"));
     }
 }
