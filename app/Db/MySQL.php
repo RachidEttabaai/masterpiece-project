@@ -69,6 +69,13 @@ class MySQL implements Db
         return $countcountries;
     }
 
+    /**
+     * Doing an insert query for adding data from an API to the database
+     *
+     * @param string $insertsqlquery
+     * @param array $datas
+     * @return void
+     */
     public function insertquery(string $insertsqlquery, array $datas): void
     {
         $stmtinsert = $this->pdo->prepare($insertsqlquery);
