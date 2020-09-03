@@ -67,13 +67,13 @@ class Init
 
         if (!empty($uri) && $uri[-1] === "/") {
             //echo rtrim($uri, "/");
-            $this->redirectUri(301, rtrim($uri, "/"));
+            return $this->redirectUri(301, rtrim($uri, "/"));
         }
 
         $route = $this->router->match($request);
 
         if (is_null($route)) {
-            $this->redirectUri(301, "/index");
+            return $this->redirectUri(301, "/index");
         } else {
 
             $response = call_user_func_array($route->getCallable(), [$request]);

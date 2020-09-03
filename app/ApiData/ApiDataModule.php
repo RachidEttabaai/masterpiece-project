@@ -58,10 +58,6 @@ class ApiDataModule
         $countriesresults = $this->keyexistinarray("Countries", $results);
         $errorsresults = $this->keyexistinarray("error", $results);
 
-        return $this->renderer->render("data", [
-            "globalresults" => $globalresults,
-            "countriesresults" => $countriesresults,
-            "error_msg" => $errorsresults
-        ]);
+        return $this->renderer->render("data", compact("globalresults", "countriesresults", "error_msg"));
     }
 }

@@ -55,9 +55,6 @@ class MapModule
         $results = $this->keyexistinarray("Countries", $results);
         $errorsresults = $this->keyexistinarray("error", $results);
 
-        return $this->renderer->render("map", [
-            "results" => $results,
-            "errorsresults" => $errorsresults
-        ]);
+        return $this->renderer->render("map", compact("results", "errorsresults"));
     }
 }
