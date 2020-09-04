@@ -32,10 +32,8 @@ class ApiDataModule
      */
     private function keyexistinarray(string $key, array $tab): array
     {
-        if (array_key_exists($key, $tab) && $key != "error") {
+        if (array_key_exists($key, $tab)) {
             $tab = $tab[$key];
-        } elseif ($key == "error") {
-            $tab = ["error_msg" => "Temporary unavailability of API data. Please come back in a moment.We apologize for the inconvenience."];
         } else {
             $tab = [];
         }
@@ -58,6 +56,6 @@ class ApiDataModule
         $countriesresults = $this->keyexistinarray("Countries", $results);
         $errorsresults = $this->keyexistinarray("error", $results);
 
-        return $this->renderer->render("data", compact("globalresults", "countriesresults", "error_msg"));
+        return $this->renderer->render("data", compact("globalresults", "countriesresults", "errorsresults"));
     }
 }
