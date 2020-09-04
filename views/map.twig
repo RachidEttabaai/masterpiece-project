@@ -1,90 +1,104 @@
 {% extends "layout/layout.twig" %}
 
 {% block stylesheet %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jvectormap/2.0.5/jquery-jvectormap.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jvectormap/2.0.5/jquery-jvectormap.css"/>
 
 {% endblock %}
 
-{% block title %} -  Map{% endblock %}
+{% block title %}
+	-  Map
+{% endblock %}
 
 {% block body %}
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 mt-4">
-      <div class="jumbotron jumbotron-fluid">
-        <div class="container text-center">
-          <h1 class="display-4">Map</h1>
-        </div>
-      </div>
+	<main role="main" class="col-md-9 ml-sm-auto col-lg-10 mt-4">
+		<div class="jumbotron jumbotron-fluid">
+			<div class="container text-center">
+				<h1 class="display-4">Map</h1>
+			</div>
+		</div>
 
-      {% if errorsresults %}
-            <div class="container text-center mb-2">
-                    <div class="row mb-2">
-                        <div class="col">
+		{% if errorsresults %}
+			<div class="container text-center mb-2">
+				<div class="row mb-2">
+					<div class="col">
 
-                        <div class="alert alert-danger" role="alert">
-                            {{ errorsresults.error_msg }}
-                        </div>
+						<div class="alert alert-danger" role="alert">
+							{{ errorsresults.error }}
+						</div>
 
-                        </div>
-                    </div>
-            </div>            
-      {% else %}
+					</div>
+				</div>
+			</div>
+		{% else %}
 
-        <div class="container text-center mb-2">
+			<div class="container text-center mb-2">
 
-          <div id="templates">
-              {% for result in results %}
-                <template tid="map-legend" id="{{ result.CountryCode }}" class="d-block mx-auto rounded">
-                  <div class="col mx-auto">
-                  <img class="flag-icon h4 d-block mx-auto rounded" src="https://www.countryflags.io/{{ result.CountryCode }}/flat/32.png" title="{{ result.Country }}" />
-                    <div>
-                      <span class="h5">{{ result.Country }}</span>
-                      <p><em class="text-muted">{{ result.Date|date("d/m/Y H:i") }}</em></p>
-                    </div>
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td>Total Confirmed</td>
-                          <td><span class="text-warning">{{ result.TotalConfirmed }}</span></td>
-                        </tr>
-                        <tr>
-                          <td>New Confirmed</td>
-                          <td><span class="text-warning">{{ result.NewConfirmed }}</span></td>
-                        </tr>
-                        <tr>
-                          <td>Total Deceased</td>
-                          <td><span class="text-danger">{{ result.TotalDeaths }}</span></td>
-                        </tr>
-                        <tr>
-                          <td>New Deceased</td>
-                          <td><span class="text-danger">{{ result.NewDeaths }}</span></td>
-                        </tr>
-                        <tr>
-                          <td>Total Recovered</td>
-                          <td><span class="text-success">{{ result.TotalRecovered }}</span></td>
-                        </tr>
-                        <tr>
-                          <td>New Recovered</td>
-                          <td><span class="text-success">{{ result.NewRecovered }}</span></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </template>
-              {% endfor %}
-          </div>
+				<div id="templates">
+					{% for result in results %}
+						<template tid="map-legend" id="{{ result.CountryCode }}" class="d-block mx-auto rounded">
+							<div class="col mx-auto">
+								<img class="flag-icon h4 d-block mx-auto rounded" src="https://www.countryflags.io/{{ result.CountryCode }}/flat/32.png" title="{{ result.Country }}"/>
+								<div>
+									<span class="h5">{{ result.Country }}</span>
+									<p>
+										<em class="text-muted">{{ result.Date|date("d/m/Y H:i") }}</em>
+									</p>
+								</div>
+								<table>
+									<tbody>
+										<tr>
+											<td>Total Confirmed</td>
+											<td>
+												<span class="text-warning">{{ result.TotalConfirmed }}</span>
+											</td>
+										</tr>
+										<tr>
+											<td>New Confirmed</td>
+											<td>
+												<span class="text-warning">{{ result.NewConfirmed }}</span>
+											</td>
+										</tr>
+										<tr>
+											<td>Total Deceased</td>
+											<td>
+												<span class="text-danger">{{ result.TotalDeaths }}</span>
+											</td>
+										</tr>
+										<tr>
+											<td>New Deceased</td>
+											<td>
+												<span class="text-danger">{{ result.NewDeaths }}</span>
+											</td>
+										</tr>
+										<tr>
+											<td>Total Recovered</td>
+											<td>
+												<span class="text-success">{{ result.TotalRecovered }}</span>
+											</td>
+										</tr>
+										<tr>
+											<td>New Recovered</td>
+											<td>
+												<span class="text-success">{{ result.NewRecovered }}</span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</template>
+					{% endfor %}
+				</div>
 
-          <div class="map-container">
-              <div id="world-map-markers" class="jvmap-smart"></div>
-          </div>
+				<div class="map-container">
+					<div id="world-map-markers" class="jvmap-smart"></div>
+				</div>
 
-        </div>
+			</div>
 
-      {% endif %}
-      
-    </main>
+		{% endif %}
+
+	</main>
 
 {% endblock %}
 
-{% block javascript %}
- 
-{% endblock %}
+{% block javascript %}{% endblock %}

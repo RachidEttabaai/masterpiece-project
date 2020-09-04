@@ -1,279 +1,280 @@
 {% extends "layout/layout.twig" %}
 
 {% block stylesheet %}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 {% endblock %}
 
-{% block title %} -  Data{% endblock %}
+{% block title %}
+	-  Data
+{% endblock %}
 
 {% block body %}
-    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 mt-4">
-            <div class="jumbotron jumbotron-fluid">
-                <div class="container text-center">
-                    <h1 class="display-4">Data</h1>
-                </div>
-            </div>
+	<main role="main" class="col-md-9 ml-sm-auto col-lg-10 mt-4">
+		<div class="jumbotron jumbotron-fluid">
+			<div class="container text-center">
+				<h1 class="display-4">Data</h1>
+			</div>
+		</div>
 
-        {% if errorsresults %}
-            <div class="container text-center mb-2">
-                    <div class="row mb-2">
-                        <div class="col">
+		{% if errorsresults %}
+			<div class="container text-center mb-2">
+				<div class="row mb-2">
+					<div class="col">
 
-                        <div class="alert alert-danger" role="alert">
-                            {{ errorsresults.error_msg }}
-                        </div>
+						<div class="alert alert-danger" role="alert">
+							{{ errorsresults.error }}
+						</div>
 
-                        </div>
-                    </div>
-            </div>            
-        {% else %}
+					</div>
+				</div>
+			</div>
+		{% else %}
 
-            <div class="container text-center mb-2">
-                <div class="row mb-2">
-                    <div class="col">
+			<div class="container text-center mb-2">
+				<div class="row mb-2">
+					<div class="col">
 
-                        <h2>Global Summary</h2>
+						<h2>Global Summary</h2>
 
-                            <em class="text-muted">API data updated on 	{{ "now"|date("d/m/Y H:i") }}</em>
-                            
-                            {% set globalresulttotalconfirmed, globalresultnewconfirmed = globalresults.TotalConfirmed, globalresults.NewConfirmed %}
-                            {% if globalresulttotalconfirmed > 0 and globalresultnewconfirmed > 0 %}
-                                {% set percentconfirmed = (globalresultnewconfirmed / globalresulttotalconfirmed) * 100 %}
-                            {% else %}
-                                {% set percentconfirmed = 0 %}
-                            {% endif %}
-                            
-                            {% set globalresulttotaldeath, globalresultnewdeath = globalresults.TotalDeaths, globalresults.NewDeaths %}
-                            {% if globalresulttotaldeath > 0 and globalresultnewdeath > 0  %}
-                                {% set percentdeath = (globalresultnewdeath / globalresulttotaldeath) * 100 %}
-                            {% else %}
-                                {% set percentdeath = 0 %}
-                            {% endif %}
-                            
-                            {% set globalresulttotalrecovered, globalresultnewrecovered = globalresults.TotalRecovered, globalresults.NewRecovered %}
-                            {% if globalresulttotalrecovered > 0 and globalresultnewrecovered > 0  %}
-                                {% set percentrecovered = (globalresultnewrecovered / globalresulttotalrecovered) * 100 %}
-                            {% else %}
-                                {% set percentrecovered = 0 %}
-                            {% endif %}
+						<em class="text-muted">API data updated on
+							{{ "now"|date("d/m/Y H:i") }}</em>
 
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                Total confirmed : 
-                                <strong>
-                                    <em class="text-warning">
-                                    {{ globalresulttotalconfirmed }}
-                                    (+
-                                    {% if percentconfirmed != 0 %}
-                                        {{ percentconfirmed|round(2,"floor") }}
-                                    {% else %}
-                                        {{ percentconfirmed }}
-                                    {% endif %}
-                                    %)
-                                    </em>
-                                </strong>
-                                </li>
-                                <li class="list-group-item">
-                                New confirmed : 
-                                <strong>
-                                    <em class="text-warning">{{ globalresultnewconfirmed }}</em>
-                                </strong>
-                                </li>
-                                <li class="list-group-item">
-                                Total Deceased : 
-                                <strong>
-                                    <em class="text-danger">
-                                    {{ globalresulttotaldeath }}
-                                    (+
-                                    {% if percentdeath != 0 %}
-                                        {{ percentdeath|round(2,"floor") }}
-                                    {% else %}
-                                        {{ percentdeath }}
-                                    {% endif %}
-                                    %)
-                                    </em>
-                                </strong>
-                                </li>
-                                <li class="list-group-item">
-                                New Deceased : 
-                                <strong>
-                                    <em class="text-danger">
-                                    {{ globalresultnewdeath }}
-                                    </em>
-                                </strong>
-                                </li>
-                                <li class="list-group-item">
-                                Total recovered : 
-                                <strong>
-                                    <em class="text-success">
-                                        {{ globalresulttotalrecovered }}
-                                        (+
-                                        {% if percentrecovered != 0 %}
-                                            {{ percentrecovered|round(2,"floor") }}
-                                        {% else %}
-                                            {{ percentrecovered }}
-                                        {% endif %}
-                                        %)
-                                    </em>
-                                </strong>
-                                </li>
-                                <li class="list-group-item">
-                                New recovered : 
-                                <strong>
-                                    <em class="text-success">{{ globalresultnewrecovered }}</em>
-                                </strong>
-                                </li>
-                            </ul>
-                    </div>
-                </div>
+						{% set globalresulttotalconfirmed, globalresultnewconfirmed = globalresults.TotalConfirmed, globalresults.NewConfirmed %}
+						{% if globalresulttotalconfirmed > 0 and globalresultnewconfirmed > 0 %}
+							{% set percentconfirmed = (globalresultnewconfirmed / globalresulttotalconfirmed) * 100 %}
+						{% else %}
+							{% set percentconfirmed = 0 %}
+						{% endif %}
 
-                <div class="row mt-4 mb-2">
+						{% set globalresulttotaldeath, globalresultnewdeath = globalresults.TotalDeaths, globalresults.NewDeaths %}
+						{% if globalresulttotaldeath > 0 and globalresultnewdeath > 0  %}
+							{% set percentdeath = (globalresultnewdeath / globalresulttotaldeath) * 100 %}
+						{% else %}
+							{% set percentdeath = 0 %}
+						{% endif %}
 
-                    <div class="col">
+						{% set globalresulttotalrecovered, globalresultnewrecovered = globalresults.TotalRecovered, globalresults.NewRecovered %}
+						{% if globalresulttotalrecovered > 0 and globalresultnewrecovered > 0  %}
+							{% set percentrecovered = (globalresultnewrecovered / globalresulttotalrecovered) * 100 %}
+						{% else %}
+							{% set percentrecovered = 0 %}
+						{% endif %}
 
-                        <h2>Summary per country</h2>
+						<ul class="list-group">
+							<li class="list-group-item">
+								Total confirmed :
+								<strong>
+									<em class="text-warning">
+										{{ globalresulttotalconfirmed }}
+										(+
+										{% if percentconfirmed != 0 %}
+											{{ percentconfirmed|round(2,"floor") }}
+										{% else %}
+											{{ percentconfirmed }}
+										{% endif %}
+										%)
+									</em>
+								</strong>
+							</li>
+							<li class="list-group-item">
+								New confirmed :
+								<strong>
+									<em class="text-warning">{{ globalresultnewconfirmed }}</em>
+								</strong>
+							</li>
+							<li class="list-group-item">
+								Total Deceased :
+								<strong>
+									<em class="text-danger">
+										{{ globalresulttotaldeath }}
+										(+
+										{% if percentdeath != 0 %}
+											{{ percentdeath|round(2,"floor") }}
+										{% else %}
+											{{ percentdeath }}
+										{% endif %}
+										%)
+									</em>
+								</strong>
+							</li>
+							<li class="list-group-item">
+								New Deceased :
+								<strong>
+									<em class="text-danger">
+										{{ globalresultnewdeath }}
+									</em>
+								</strong>
+							</li>
+							<li class="list-group-item">
+								Total recovered :
+								<strong>
+									<em class="text-success">
+										{{ globalresulttotalrecovered }}
+										(+
+										{% if percentrecovered != 0 %}
+											{{ percentrecovered|round(2,"floor") }}
+										{% else %}
+											{{ percentrecovered }}
+										{% endif %}
+										%)
+									</em>
+								</strong>
+							</li>
+							<li class="list-group-item">
+								New recovered :
+								<strong>
+									<em class="text-success">{{ globalresultnewrecovered }}</em>
+								</strong>
+							</li>
+						</ul>
+					</div>
+				</div>
 
-                        <em class="text-muted">API data updated on {{ countriesresults.0.Date|date("d/m/Y H:i") }}</em>
+				<div class="row mt-4 mb-2">
 
-                        <div class="table-responsive">
-                            <table id="summarypercountry" class="table display">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Total confirmed</th>
-                                    <th>New confirmed</th>
-                                    <th>%</th>
-                                    <th>Total deceased</th>
-                                    <th>New deceased</th>
-                                    <th>%</th>
-                                    <th>Total recovered</th>
-                                    <th>New recovered</th>
-                                    <th>%</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for countriesresult in countriesresults %}
-                                    
-                                        {% set countriesresultconfirmed, countriesresultnewconfirmed = countriesresult.TotalConfirmed, countriesresult.NewConfirmed %}
-                                        {% if countriesresultconfirmed > 0 and countriesresultnewconfirmed > 0 %}
-                                            {% set percentconfirmedbycountry = (countriesresultnewconfirmed / countriesresultconfirmed) * 100 %}
-                                        {% else %}
-                                            {% set percentconfirmedbycountry = 0 %}
-                                        {% endif %}
-                                        
-                                        {% set countriesresultdeath, countriesresultnewdeath = countriesresult.TotalDeaths, countriesresult.NewDeaths %}
-                                        {% if countriesresultdeath > 0 and countriesresultnewdeath > 0  %}
-                                            {% set percentdeathbycountry = (countriesresultnewdeath / countriesresultdeath) * 100 %}
-                                        {% else %}
-                                            {% set percentdeathbycountry = 0 %}
-                                        {% endif %}
-                                        
-                                        {% set countriesresultrecovered, countriesresultnewrecovered = countriesresult.TotalRecovered, countriesresult.NewRecovered %}
-                                        {% if countriesresultrecovered > 0 and countriesresultnewrecovered > 0  %}
-                                            {% set percentrecoveredbycountry = (countriesresultnewrecovered / countriesresultrecovered) * 100 %}
-                                        {% else %}
-                                            {% set percentrecoveredbycountry = 0 %}
-                                        {% endif %}
-                                    <tr>
-                                    <td>
-                                        <img src="https://www.countryflags.io/{{ countriesresult.CountryCode }}/flat/32.png"
-                                            title="{{ countriesresult.Country }}" />
-                                        {{ countriesresult.Country }}
-                                    </td>
-                                    <td>
-                                        <strong>
-                                        <em class="text-warning">
-                                            {{ countriesresultconfirmed }}
-                                        </em>
-                                        </strong>
-                                    </td>
-                                    <td>
-                                        <strong>
-                                        <em class="text-warning">
-                                            {{ countriesresultnewconfirmed }}
-                                        </em>
-                                        </strong>
-                                    </td>
-                                    <td>
-                                        <strong>
-                                        <em class="text-warning">     
-                                            {% if percentconfirmedbycountry != 0 %}
-                                               +{{ percentconfirmedbycountry|round(2,"floor") }}%
-                                            {% else %}
-                                                +{{ percentconfirmedbycountry }}%
-                                            {% endif %}
-                                        </em>
-                                        </strong>
-                                    </td>
-                                    <td>
-                                        <strong>
-                                        <em class="text-danger">
-                                        {{ countriesresultdeath }}
-                                        </em>
-                                        </strong>
-                                    </td>
-                                    <td>
-                                        <strong>
-                                        <em class="text-danger">
-                                        {{ countriesresultnewdeath }}
-                                        </em>
-                                        </strong>
-                                    </td>
-                                    <td>
-                                        <strong>
-                                        <em class="text-danger">    
-                                            {% if percentdeathbycountry != 0 %}
-                                                +{{ percentdeathbycountry|round(2,"floor") }}%
-                                            {% else %}
-                                                +{{ percentdeathbycountry }}%
-                                            {% endif %}
-                                        </em>
-                                        </strong>
-                                    </td>
-                                    <td>
-                                        <strong>
-                                        <em class="text-success">
-                                        {{ countriesresultrecovered }}
-                                        </em>
-                                        </strong>
-                                    </td>
-                                    <td>
-                                        <strong>
-                                        <em class="text-success">
-                                        {{ countriesresultnewrecovered }}
-                                        </em>
-                                        </strong>
-                                    </td>
-                                    <td>
-                                        <strong>
-                                        <em class="text-success">   
-                                            {% if percentrecoveredbycountry != 0 %}
-                                                +{{ percentrecoveredbycountry|round(2,"floor") }}%
-                                            {% else %}
-                                                +{{ percentrecoveredbycountry }}%
-                                            {% endif %}
-                                        </em>
-                                        </strong>
-                                    </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
+					<div class="col">
 
-                    </div>
+						<h2>Summary per country</h2>
 
-                </div>
+						<em class="text-muted">API data updated on
+							{{ countriesresults.0.Date|date("d/m/Y H:i") }}</em>
 
-            </div>
-            
-        {% endif %}
-        
-            
-        </main>
+						<div class="table-responsive">
+							<table id="summarypercountry" class="table display">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Total confirmed</th>
+										<th>New confirmed</th>
+										<th>%</th>
+										<th>Total deceased</th>
+										<th>New deceased</th>
+										<th>%</th>
+										<th>Total recovered</th>
+										<th>New recovered</th>
+										<th>%</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for countriesresult in countriesresults %}
+
+										{% set countriesresultconfirmed, countriesresultnewconfirmed = countriesresult.TotalConfirmed, countriesresult.NewConfirmed %}
+										{% if countriesresultconfirmed > 0 and countriesresultnewconfirmed > 0 %}
+											{% set percentconfirmedbycountry = (countriesresultnewconfirmed / countriesresultconfirmed) * 100 %}
+										{% else %}
+											{% set percentconfirmedbycountry = 0 %}
+										{% endif %}
+
+										{% set countriesresultdeath, countriesresultnewdeath = countriesresult.TotalDeaths, countriesresult.NewDeaths %}
+										{% if countriesresultdeath > 0 and countriesresultnewdeath > 0  %}
+											{% set percentdeathbycountry = (countriesresultnewdeath / countriesresultdeath) * 100 %}
+										{% else %}
+											{% set percentdeathbycountry = 0 %}
+										{% endif %}
+
+										{% set countriesresultrecovered, countriesresultnewrecovered = countriesresult.TotalRecovered, countriesresult.NewRecovered %}
+										{% if countriesresultrecovered > 0 and countriesresultnewrecovered > 0  %}
+											{% set percentrecoveredbycountry = (countriesresultnewrecovered / countriesresultrecovered) * 100 %}
+										{% else %}
+											{% set percentrecoveredbycountry = 0 %}
+										{% endif %}
+										<tr>
+											<td>
+												<img src="https://www.countryflags.io/{{ countriesresult.CountryCode }}/flat/32.png" title="{{ countriesresult.Country }}"/>
+												{{ countriesresult.Country }}
+											</td>
+											<td>
+												<strong>
+													<em class="text-warning">
+														{{ countriesresultconfirmed }}
+													</em>
+												</strong>
+											</td>
+											<td>
+												<strong>
+													<em class="text-warning">
+														{{ countriesresultnewconfirmed }}
+													</em>
+												</strong>
+											</td>
+											<td>
+												<strong>
+													<em class="text-warning">
+														{% if percentconfirmedbycountry != 0 %}
+															+{{ percentconfirmedbycountry|round(2,"floor") }}%
+														{% else %}
+															+{{ percentconfirmedbycountry }}%
+														{% endif %}
+													</em>
+												</strong>
+											</td>
+											<td>
+												<strong>
+													<em class="text-danger">
+														{{ countriesresultdeath }}
+													</em>
+												</strong>
+											</td>
+											<td>
+												<strong>
+													<em class="text-danger">
+														{{ countriesresultnewdeath }}
+													</em>
+												</strong>
+											</td>
+											<td>
+												<strong>
+													<em class="text-danger">
+														{% if percentdeathbycountry != 0 %}
+															+{{ percentdeathbycountry|round(2,"floor") }}%
+														{% else %}
+															+{{ percentdeathbycountry }}%
+														{% endif %}
+													</em>
+												</strong>
+											</td>
+											<td>
+												<strong>
+													<em class="text-success">
+														{{ countriesresultrecovered }}
+													</em>
+												</strong>
+											</td>
+											<td>
+												<strong>
+													<em class="text-success">
+														{{ countriesresultnewrecovered }}
+													</em>
+												</strong>
+											</td>
+											<td>
+												<strong>
+													<em class="text-success">
+														{% if percentrecoveredbycountry != 0 %}
+															+{{ percentrecoveredbycountry|round(2,"floor") }}%
+														{% else %}
+															+{{ percentrecoveredbycountry }}%
+														{% endif %}
+													</em>
+												</strong>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		{% endif %}
+
+
+	</main>
 
 {% endblock %}
 
-{% block javascript %}
-  
-{% endblock %}
+{% block javascript %}{% endblock %}
