@@ -16,10 +16,18 @@ class HomeModule
      */
     private $renderer;
 
+    /**
+     * Default path for the rendering system with/without template engine
+     *
+     * @var string
+     */
+    private $defaultpath;
+
     public function __construct(Router $router, RendererInterface $renderer)
     {
         $this->renderer = $renderer;
-        $this->renderer->addPath("index", dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "views");
+        $this->defaultpath = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "templates";
+        $this->renderer->addPath("index", $this->defaultpath);
         $router->get("/index", [$this, "index"], "home.page");
     }
 
