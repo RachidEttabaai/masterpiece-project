@@ -30,7 +30,6 @@ class Init
     public function __construct(array $modules = [], array $dependencies = [])
     {
         $this->router = new Router();
-
         if (!empty($modules)) {
 
             foreach ($modules as $module) {

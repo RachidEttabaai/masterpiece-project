@@ -11,15 +11,19 @@ use GuzzleHttp\Psr7\ServerRequest;
 
 require dirname(__DIR__) . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
 
-$renderer = new TwigRenderer(dirname(__DIR__). DIRECTORY_SEPARATOR . "views");
+$defaultpathforviews = dirname(__DIR__) . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "templates";
 
-$listmodules = [HomeModule::class,
-                ApiDataModule::class,
-                MapModule::class,
-                AboutModule::class];
+$renderer = new TwigRenderer($defaultpathforviews);
+
+$listmodules = [
+    HomeModule::class,
+    ApiDataModule::class,
+    MapModule::class,
+    AboutModule::class
+];
 
 $listrenderer = ["renderer" => $renderer];
 
-$init = new Init($listmodules,$listrenderer);
+$init = new Init($listmodules, $listrenderer);
 $response = $init->run(ServerRequest::fromGlobals());
 send($response);

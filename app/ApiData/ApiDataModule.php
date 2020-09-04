@@ -16,10 +16,18 @@ class ApiDataModule
      */
     private $renderer;
 
+    /**
+     * Default path for the rendering system with/without template engine
+     *
+     * @var string
+     */
+    private $defaultpath;
+
     public function __construct(Router $router, RendererInterface $renderer)
     {
         $this->renderer = $renderer;
-        $this->renderer->addPath("data", dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "views");
+        $this->defaultpath = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "templates";
+        $this->renderer->addPath("data", $this->defaultpath);
         $router->get("/data", [$this, "data"], "data.page");
     }
 
@@ -54,7 +62,7 @@ class ApiDataModule
 
         $globalresults = $this->keyexistinarray("Global", $results);
         $countriesresults = $this->keyexistinarray("Countries", $results);
-        $errorsresults = $this->keyexistinarray("error", $results);
+        $errorsresults = $this->keyexistinarray("message", $results);
 
         return $this->renderer->render("data", compact("globalresults", "countriesresults", "errorsresults"));
     }
