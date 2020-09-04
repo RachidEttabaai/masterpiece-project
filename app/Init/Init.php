@@ -55,6 +55,23 @@ class Init
     }
 
     /**
+     * Checking the response of the request and return the result
+     *
+     * @param mixed $response
+     * @return ResponseInterface
+     */
+    private function ckeckRequestResponse($response): ResponseInterface
+    {
+        if (is_string($response)) {
+            return new Response(200, [], $response);
+        } elseif ($response instanceof ResponseInterface) {
+            return $response;
+        } else {
+            throw new \Exception("Houston we have got a probleme!!!");
+        }
+    }
+
+    /**
      * URI Management
      *
      * @param  ServerRequestInterface $request
@@ -78,13 +95,7 @@ class Init
 
             $response = call_user_func_array($route->getCallable(), [$request]);
 
-            if (is_string($response)) {
-                return new Response(200, [], $response);
-            } elseif ($response instanceof ResponseInterface) {
-                return $response;
-            } else {
-                throw new \Exception("Houston we have got a probleme!!!");
-            }
+            return $this->ckeckRequestResponse($response);
         }
     }
 }
