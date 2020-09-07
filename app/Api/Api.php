@@ -42,6 +42,8 @@ class Api
 
     /**
      * Get the value of guzzlehttp
+     * 
+     * @return Client
      */
     public function getGuzzlehttp(): Client
     {
@@ -50,6 +52,8 @@ class Api
 
     /**
      * Get the value of apiurl
+     * 
+     * @return string|null
      */
     public function getApiurl(): ?string
     {
