@@ -89,7 +89,7 @@ class Init
         $route = $this->router->match($request);
 
         if (is_null($route)) {
-            return $this->redirectUri(301, "/index");
+            return $this->redirectUri(404, "/error");
         } else {
 
             $response = call_user_func_array($route->getCallable(), [$request]);
