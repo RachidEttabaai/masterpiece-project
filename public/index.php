@@ -6,6 +6,8 @@ use App\Home\HomeModule;
 use App\About\AboutModule;
 use App\Renderer\TwigRenderer;
 use App\ApiData\ApiDataModule;
+use App\Error\ErrorModule;
+
 use function Http\Response\send;
 use GuzzleHttp\Psr7\ServerRequest;
 
@@ -19,7 +21,8 @@ $listmodules = [
     HomeModule::class,
     ApiDataModule::class,
     MapModule::class,
-    AboutModule::class
+    AboutModule::class,
+    ErrorModule::class
 ];
 
 $listrenderer = ["renderer" => $renderer];
