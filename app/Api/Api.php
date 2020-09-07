@@ -79,7 +79,7 @@ class Api
             $resrequest = $promise->wait();
         } catch (ServerException $e) {
 
-            $resrequest = ["error" => $e->getMessage()];
+            $resrequest = ["message" => $e->getMessage()];
         }
 
         return $resrequest;
@@ -103,7 +103,7 @@ class Api
             $res = $this->sendRequest($request);
         } else {
 
-            $res = ["error" => "Problem with the API url"];
+            $res = ["message" => "Problem with the API url"];
         }
 
         return $res;
