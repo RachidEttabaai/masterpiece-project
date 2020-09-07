@@ -1,5 +1,9 @@
 let $ = require("jquery");
 
+/**
+ * Check if a content is null or not
+ * @param {string} content 
+ */
 function checkifcontentnotnull(content) {
 
     if (content !== null) {
@@ -9,6 +13,10 @@ function checkifcontentnotnull(content) {
     }
 }
 
+/**
+ * Check if an image url is null or not
+ * @param {string} imgurl 
+ */
 function checkifimgurlnotnull(imgurl) {
     if (imgurl !== null) {
         return imgurl;
@@ -17,6 +25,10 @@ function checkifimgurlnotnull(imgurl) {
     }
 }
 
+/**
+ * Rendering the JSON data from the API request
+ * @param {array} newscontent 
+ */
 function renderNews(newscontent) {
 
     let cardnews = [];
@@ -54,6 +66,10 @@ function renderNews(newscontent) {
     }));
 }
 
+/**
+ * Check if the result of the API request is not empty
+ * @param {array} newscontent 
+ */
 function checkNews(newscontent) {
 
     if (!$.isArray(newscontent) || newscontent.length == 0) {
@@ -67,6 +83,10 @@ function checkNews(newscontent) {
 
 }
 
+/**
+ * Doing the API request
+ * @param {string} url 
+ */
 function apirequest(url) {
 
     $.getJSON(url, function(data) {
@@ -78,6 +98,11 @@ function apirequest(url) {
 
 
 }
+
+/**
+ * Get data from a remote API as JSON
+ * @param {string} optionselected 
+ */
 export function getJsonData(optionselected) {
 
     if (optionselected == "none") {
