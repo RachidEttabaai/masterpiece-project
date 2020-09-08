@@ -22,10 +22,10 @@ class TwigRenderer implements RendererInterface
      */
     private $loader;
 
-    public function __construct(string $defaultPath)
+    public function __construct(array $defaultPaths = [])
     {
 
-        $this->loader = new FilesystemLoader($defaultPath);
+        $this->loader = new FilesystemLoader($defaultPaths);
         $this->twig = new Environment($this->loader, []);
 
         $this->addTwigFunction("var_dump", function ($value) {
