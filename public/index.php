@@ -15,7 +15,11 @@ require dirname(__DIR__) . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR 
 
 $defaultpathforviews = dirname(__DIR__) . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "templates";
 
-$renderer = new TwigRenderer($defaultpathforviews);
+$defaultpathforerrors = $defaultpathforviews . DIRECTORY_SEPARATOR . "errors";
+
+$tabpaths = [$defaultpathforviews, $defaultpathforerrors];
+
+$renderer = new TwigRenderer($tabpaths);
 
 $listmodules = [
     HomeModule::class,
