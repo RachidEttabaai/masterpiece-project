@@ -21,8 +21,26 @@ function checkifimgurlnotnull(imgurl) {
     if (imgurl !== null) {
         return imgurl;
     } else {
-        return "https://via.placeholder.com/300.png?text=No%20image%20found";
+        return "https://via.placeholder.com/300.png?text=Image%20not%20found";
     }
+}
+
+/**
+ * Check if an image is loaded or not
+ * @param {string} tagimg 
+ */
+function checkifimgloaded(tagimg) {
+
+    //console.log("nb img", $(tagimg).length);
+
+    $(tagimg).each(function() {
+        $(this).on("load", function() {
+            // console.log("img loaded");
+        }).on("error", function() {
+            $(this).attr("src", "https://via.placeholder.com/300.png?text=Image%20not%20found")
+        }).attr("src", $(this).attr("src"));
+    });
+
 }
 
 /**
@@ -64,6 +82,9 @@ function renderNews(newscontent) {
         "class": "card-deck",
         html: cardnews.join("")
     }));
+
+    checkifimgloaded("img");
+
 }
 
 /**
