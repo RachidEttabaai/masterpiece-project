@@ -25,7 +25,7 @@ class ErrorModule
     public function __construct(Router $router, RendererInterface $renderer)
     {
         $this->renderer = $renderer;
-        $this->defaultpath = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "templates" . DIRECTORY_SEPARATOR . "errors";
+        $this->defaultpath = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "templates" . DIRECTORY_SEPARATOR . "errors";
         $this->renderer->addPath("error", $this->defaultpath);
         $router->get("/error", [$this, "error"], "error.page");
     }

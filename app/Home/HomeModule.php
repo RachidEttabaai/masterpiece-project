@@ -26,7 +26,7 @@ class HomeModule
     public function __construct(Router $router, RendererInterface $renderer)
     {
         $this->renderer = $renderer;
-        $this->defaultpath = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "templates";
+        $this->defaultpath = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "templates";
         $this->renderer->addPath("index", $this->defaultpath);
         $router->get("/index", [$this, "index"], "home.page");
     }

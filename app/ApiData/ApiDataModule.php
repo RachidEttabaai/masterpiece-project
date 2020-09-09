@@ -26,7 +26,7 @@ class ApiDataModule
     public function __construct(Router $router, RendererInterface $renderer)
     {
         $this->renderer = $renderer;
-        $this->defaultpath = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "templates";
+        $this->defaultpath = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "templates";
         $this->renderer->addPath("data", $this->defaultpath);
         $router->get("/data", [$this, "data"], "data.page");
     }
