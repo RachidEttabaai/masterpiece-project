@@ -13,7 +13,7 @@ use GuzzleHttp\Psr7\ServerRequest;
 
 require dirname(__DIR__) . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
 
-$defaultpathforviews = dirname(__DIR__) . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "templates";
+$defaultpathforviews = dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates";
 
 $defaultpathforerrors = $defaultpathforviews . DIRECTORY_SEPARATOR . "errors";
 

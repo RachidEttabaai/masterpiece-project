@@ -25,7 +25,7 @@ class AboutModule
     public function __construct(Router $router, RendererInterface $renderer)
     {
         $this->renderer = $renderer;
-        $this->defaultpath = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "views" . DIRECTORY_SEPARATOR . "templates";
+        $this->defaultpath = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "templates";
         $this->renderer->addPath("about", $this->defaultpath);
         $router->get("/about", [$this, "about"], "about.page");
     }
