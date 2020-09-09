@@ -30,8 +30,12 @@ class Init
     public function __construct(array $modules = [], array $dependencies = [])
     {
         $this->router = new Router();
-        if (!empty($modules)) {
 
+        if (array_key_exists("renderer", $dependencies)) {
+            $dependencies["renderer"]->addGlobal("router", $this->router);
+        }
+
+        if (!empty($modules)) {
             foreach ($modules as $module) {
                 $this->modules[] = new $module($this->router, $dependencies["renderer"]);
             }
@@ -66,7 +70,7 @@ class Init
         } elseif ($response instanceof ResponseInterface) {
             return $response;
         } else {
-            throw new \Exception("Houston we have got a probleme!!!");
+            throw new \Exception("Houston we have got a problem!!!");
         }
     }
 

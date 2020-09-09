@@ -21,4 +21,13 @@ interface RendererInterface
      * @return string
      */
     public function render(string $view, array $params = []);
+
+    /**
+     * Add global variable to all views
+     *
+     * @param string $key
+     * @param mixed $value
+     * @return void
+     */
+    public function addGlobal(string $key, $value): void;
 }
