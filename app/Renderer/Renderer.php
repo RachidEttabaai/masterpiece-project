@@ -8,6 +8,8 @@ class Renderer implements RendererInterface
 
     private $paths = [];
 
+    private $globals = [];
+
     public function __construct(?string $defaultPath = null)
     {
         if (!is_null($defaultPath)) {
@@ -46,5 +48,17 @@ class Renderer implements RendererInterface
         extract($params);
         require($path);
         return ob_get_clean();
+    }
+
+    /**
+     * Add global variable to all views
+     *
+     * @param string $key
+     * @param mixed $value
+     * @return void
+     */
+    public function addGlobal(string $key, $value): void
+    {
+        $this->globals[$key] = $value;
     }
 }
