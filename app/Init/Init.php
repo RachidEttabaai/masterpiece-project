@@ -4,6 +4,8 @@ namespace App\Init;
 
 use App\Router\Router;
 use GuzzleHttp\Psr7\Response;
+use App\Renderer\RendererInterface;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -27,17 +29,29 @@ class Init
      */
     private $router;
 
-    public function __construct(array $modules = [], array $dependencies = [])
+    /**
+     * Dependency injection container
+     *
+     * @var ContainerInterface
+     */
+    private $container;
+
+    public function __construct(ContainerInterface $container)
     {
         $this->router = new Router();
+        $this->container = $container;
 
-        if (array_key_exists("renderer", $dependencies)) {
-            $dependencies["renderer"]->addGlobal("router", $this->router);
+        $renderer = $this->container->get(RendererInterface::class);
+
+        if ($renderer) {
+            $renderer->addGlobal("router", $this->router);
         }
+
+        $modules = $this->container->get("listmodules");
 
         if (!empty($modules)) {
             foreach ($modules as $module) {
-                $this->modules[] = new $module($this->router, $dependencies["renderer"]);
+                $this->modules[] = new $module($this->router, $renderer);
             }
         }
     }
