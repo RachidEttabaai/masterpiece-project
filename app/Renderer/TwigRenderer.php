@@ -40,10 +40,6 @@ class TwigRenderer implements RendererInterface
             echo "</pre>";
         });
 
-        $this->addTwigFunction("includefct", function ($filename, $assetfolder) {
-            include(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "assets" . DIRECTORY_SEPARATOR . $assetfolder . DIRECTORY_SEPARATOR . $filename);
-        });
-
         $this->addTwigFunction("bundlejs", function () {
             include(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "bundle.js");
         });
@@ -74,6 +70,18 @@ class TwigRenderer implements RendererInterface
         if (!is_null($path)) {
             $this->loader->addPath($path, $namespace);
         }
+    }
+
+    /**
+     * Add global variable to all views
+     *
+     * @param string $key
+     * @param mixed $value
+     * @return void
+     */
+    public function addGlobal(string $key, $value): void
+    {
+        $this->twig->addGlobal($key, $value);
     }
 
     /**
