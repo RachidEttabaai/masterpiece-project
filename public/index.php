@@ -1,36 +1,20 @@
 <?php
 
 use App\Init\Init;
-use App\Map\MapModule;
-use App\Home\HomeModule;
-use App\About\AboutModule;
-use App\Renderer\TwigRenderer;
-use App\ApiData\ApiDataModule;
-use App\Error\ErrorModule;
-
+use DI\ContainerBuilder;
 use function Http\Response\send;
 use GuzzleHttp\Psr7\ServerRequest;
 
 require dirname(__DIR__) . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "autoload.php";
 
-$defaultpathforviews = dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates";
+$configpath = dirname(__DIR__) . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "config.php";
 
-$defaultpathforerrors = $defaultpathforviews . DIRECTORY_SEPARATOR . "errors";
+$containerbuilder = new ContainerBuilder();
+$containerbuilder->addDefinitions($configpath);
+$container = $containerbuilder->build();
 
-$tabpaths = [$defaultpathforviews, $defaultpathforerrors];
+$listrenderer = ["renderer" => $container->get("renderer")];
 
-$renderer = new TwigRenderer($tabpaths);
-
-$listmodules = [
-    HomeModule::class,
-    ApiDataModule::class,
-    MapModule::class,
-    AboutModule::class,
-    ErrorModule::class
-];
-
-$listrenderer = ["renderer" => $renderer];
-
-$init = new Init($listmodules, $listrenderer);
+$init = new Init($container->get("listmodules"), $listrenderer);
 $response = $init->run(ServerRequest::fromGlobals());
 send($response);
