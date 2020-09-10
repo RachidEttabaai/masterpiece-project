@@ -38,12 +38,13 @@ class Init
 
     public function __construct(ContainerInterface $container)
     {
-        $this->router = new Router();
         $this->container = $container;
+        $this->router = $this->container->get(Router::class);
 
-        $renderer = $this->container->get(RendererInterface::class);
+        $renderer = null;
 
-        if ($renderer) {
+        if ($this->container->has(RendererInterface::class)) {
+            $renderer = $this->container->get(RendererInterface::class);
             $renderer->addGlobal("router", $this->router);
         }
 
