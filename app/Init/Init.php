@@ -86,6 +86,16 @@ class Init
         }
     }
 
+    private function checkUri(string $uri): ResponseInterface
+    {
+        if (!empty($uri) && $uri[-1] === "/") {
+            //echo rtrim($uri, "/");
+            return $this->redirectUri(301, rtrim($uri, "/"));
+        }
+
+        return $this->redirectUri(301, "/index");
+    }
+
     /**
      * URI Management
      *
@@ -97,10 +107,7 @@ class Init
 
         $uri = $request->getUri()->getPath();
 
-        if (!empty($uri) && $uri[-1] === "/") {
-            //echo rtrim($uri, "/");
-            return $this->redirectUri(301, rtrim($uri, "/"));
-        }
+        $this->checkUri($uri);
 
         $route = $this->router->match($request);
 
