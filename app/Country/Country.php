@@ -15,10 +15,18 @@ class Country extends MySQL
      */
     private $apiurlforcountries;
 
-    public function __construct(?string $apiurlforcountries, ContainerInterface $container)
+    /**
+     * Dependency injection container
+     *
+     * @var ContainerInterface
+     */
+    private $container;
+
+    public function __construct(ContainerInterface $container)
     {
-        parent::__construct($container);
-        $this->apiurlforcountries = $apiurlforcountries;
+        $this->container = $container;
+        parent::__construct($this->container);
+        $this->apiurlforcountries = $this->container->get("apiCovid19") . "countries";
     }
 
     /**
@@ -34,7 +42,7 @@ class Country extends MySQL
         foreach ($apidatatables as $apidatatable) {
 
             if ($apidatatable["ISO2"] != "AN") {
-                $coordonnesgpsforcountriesapi = new Api("https://restcountries.eu/rest/v2/alpha/" . $apidatatable["ISO2"]);
+                $coordonnesgpsforcountriesapi = new Api($this->container->get("apiRestCountries") . $apidatatable["ISO2"]);
 
                 $coordonnesgpsforcountries = $coordonnesgpsforcountriesapi->apirequest();
 

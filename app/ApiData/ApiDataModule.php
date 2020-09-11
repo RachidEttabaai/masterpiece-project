@@ -66,7 +66,7 @@ class ApiDataModule
      */
     public function data(ServerRequestInterface $request): string
     {
-        $summary = new Summary("https://api.covid19api.com/summary");
+        $summary = new Summary($this->container->get("apiCovid19") . "summary");
         $results = $summary->getSummaryFromAPI();
 
         $globalresults = $this->keyexistinarray("Global", $results);
