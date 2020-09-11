@@ -4,6 +4,7 @@ namespace App\Error;
 
 use App\Router\Router;
 use App\Renderer\RendererInterface;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class ErrorModule
@@ -22,12 +23,20 @@ class ErrorModule
      */
     private $defaultpath;
 
-    public function __construct(Router $router, RendererInterface $renderer)
+    /**
+     * Dependency injection container
+     *
+     * @var ContainerInterface
+     */
+    private $container;
+
+    public function __construct(ContainerInterface $container)
     {
-        $this->renderer = $renderer;
+        $this->container = $container;
+        $this->renderer = $this->container->get(RendererInterface::class);
         $this->defaultpath = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "templates" . DIRECTORY_SEPARATOR . "errors";
         $this->renderer->addPath("error", $this->defaultpath);
-        $router->get("/error", [$this, "error"], "error.page");
+        $this->container->get(Router::class)->get("/error", [$this, "error"], "error.page");
     }
 
     /**

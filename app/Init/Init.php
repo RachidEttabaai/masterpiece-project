@@ -41,18 +41,15 @@ class Init
         $this->container = $container;
         $this->router = $this->container->get(Router::class);
 
-        $renderer = null;
-
         if ($this->container->has(RendererInterface::class)) {
-            $renderer = $this->container->get(RendererInterface::class);
-            $renderer->addGlobal("router", $this->router);
+            $this->container->get(RendererInterface::class)->addGlobal("router", $this->router);
         }
 
         $modules = $this->container->get("listmodules");
 
         if (!empty($modules)) {
             foreach ($modules as $module) {
-                $this->modules[] = new $module($this->router, $renderer);
+                $this->modules[] = new $module($this->container);
             }
         }
     }

@@ -3,10 +3,10 @@
 namespace App\Db;
 
 use PDO;
-use App\Db\Db;
 use PDOException;
+use Psr\Container\ContainerInterface;
 
-class MySQL implements Db
+class MySQL
 {
     /* 
     Object representing a connection between PHP and a database server.
@@ -14,9 +14,14 @@ class MySQL implements Db
     */
     protected $pdo;
 
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
-        $this->pdo = $this->connect(Db::DB_DNS, Db::DB_USER, Db::DB_PWD, Db::DB_OPTIONS);
+        $this->pdo = $this->connect(
+            $container->get("database.dns"),
+            $container->get("database.username"),
+            $container->get("database.pwd"),
+            $container->get("database.options")
+        );
     }
 
     /**

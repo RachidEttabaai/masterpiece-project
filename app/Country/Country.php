@@ -4,6 +4,7 @@ namespace App\Country;
 
 use App\Api\Api;
 use App\Db\MySQL;
+use Psr\Container\ContainerInterface;
 
 class Country extends MySQL
 {
@@ -14,9 +15,9 @@ class Country extends MySQL
      */
     private $apiurlforcountries;
 
-    public function __construct(?string $apiurlforcountries)
+    public function __construct(?string $apiurlforcountries, ContainerInterface $container)
     {
-        parent::__construct();
+        parent::__construct($container);
         $this->apiurlforcountries = $apiurlforcountries;
     }
 
