@@ -9,7 +9,8 @@
         "http-interop/response-sender": "^1.0",
         "kevinrob/guzzle-cache-middleware": "^3.3",
         "twig/twig": "^3.0",
-        "php-di/php-di": "^6.2"
+        "php-di/php-di": "^6.2",
+        "psr/container": "^1.0"
     },
     "authors": [{
         "name": "Rachid ETTABAAI",
