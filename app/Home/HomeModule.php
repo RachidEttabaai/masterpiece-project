@@ -51,7 +51,7 @@ class HomeModule
         $rescountries = [];
 
         if ($country->countCountriesinDB() === 0) {
-            $country = new Country("https://api.covid19api.com/countries", $this->container);
+            $country = new Country($this->container);
             $country->insertCountriesDatastoDB();
         }
 
@@ -68,7 +68,7 @@ class HomeModule
      */
     public function index(ServerRequestInterface $request): string
     {
-        $country = new Country(null, $this->container);
+        $country = new Country($this->container);
         $countries = $this->checkCountryinDB($country);
 
         return $this->renderer->render("index", compact("countries"));

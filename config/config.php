@@ -27,5 +27,7 @@ return [
     "listmodules" => factory([ModuleFactory::class, "__invoke"]),
     "init" => factory([InitFactory::class, "__invoke"]),
     "router" => new Router(),
-    Router::class => factory([RouterFactory::class, "__invoke"])
+    Router::class => factory([RouterFactory::class, "__invoke"]),
+    "apiCovid19" => "https://api.covid19api.com/",
+    "apiRestCountries" => "https://restcountries.eu/rest/v2/alpha/"
 ];

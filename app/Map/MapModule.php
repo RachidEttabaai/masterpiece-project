@@ -66,7 +66,7 @@ class MapModule
      */
     public function map(ServerRequestInterface $request): string
     {
-        $summary = new Summary("https://api.covid19api.com/summary");
+        $summary = new Summary($this->container->get("apiCovid19") . "summary");
         $results = $summary->getSummaryFromAPI();
 
         $results = $this->keyexistinarray("Countries", $results);
