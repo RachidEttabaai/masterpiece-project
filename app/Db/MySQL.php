@@ -6,7 +6,7 @@ use PDO;
 use PDOException;
 use Psr\Container\ContainerInterface;
 
-class MySQL
+class MySQL implements Db
 {
     /* 
     Object representing a connection between PHP and a database server.
@@ -14,14 +14,23 @@ class MySQL
     */
     protected $pdo;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(?ContainerInterface $container)
     {
-        $this->pdo = $this->connect(
-            $container->get("database.dns"),
-            $container->get("database.username"),
-            $container->get("database.pwd"),
-            $container->get("database.options")
-        );
+        if ($container) {
+            $this->pdo = $this->connect(
+                $container->get("database.dns"),
+                $container->get("database.username"),
+                $container->get("database.pwd"),
+                $container->get("database.options")
+            );
+        } else {
+            $this->pdo = $this->connect(
+                Db::DB_DNS,
+                Db::DB_USER,
+                Db::DB_PWD,
+                Db::DB_OPTIONS
+            );
+        }
     }
 
     /**

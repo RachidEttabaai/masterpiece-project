@@ -11,7 +11,7 @@ class DbTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->pdo = new MySQL();
+        $this->pdo = new MySQL(null);
     }
 
     protected function tearDown(): void
