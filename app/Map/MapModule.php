@@ -5,6 +5,7 @@ namespace App\Map;
 use App\Router\Router;
 use App\Summary\Summary;
 use App\Renderer\RendererInterface;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class MapModule
@@ -23,12 +24,20 @@ class MapModule
      */
     private $defaultpath;
 
-    public function __construct(Router $router, RendererInterface $renderer)
+    /**
+     * Dependency injection container
+     *
+     * @var ContainerInterface
+     */
+    private $container;
+
+    public function __construct(ContainerInterface $container)
     {
-        $this->renderer = $renderer;
+        $this->container = $container;
+        $this->renderer = $this->container->get(RendererInterface::class);
         $this->defaultpath = dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . "templates";
         $this->renderer->addPath("map", $this->defaultpath);
-        $router->get("/map", [$this, "map"], "map.page");
+        $this->container->get(Router::class)->get("/map", [$this, "map"], "map.page");
     }
 
     /**
