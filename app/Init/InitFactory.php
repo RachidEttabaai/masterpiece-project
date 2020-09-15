@@ -8,6 +8,12 @@ use Psr\Container\ContainerInterface;
 
 class InitFactory
 {
+    /**
+     * Call the Init object like a function
+     *
+     * @param ContainerInterface $container
+     * @return void
+     */
     public function __invoke(ContainerInterface $container): void
     {
         $init = new Init($container);

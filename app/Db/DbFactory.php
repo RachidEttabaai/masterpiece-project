@@ -7,11 +7,22 @@ use Psr\Container\ContainerInterface;
 
 class DbFactory
 {
+    /**
+     * Return the DNS for database connection with the parameters in the container
+     *
+     * @param ContainerInterface $container
+     * @return string
+     */
     public function getDNS(ContainerInterface $container): string
     {
         return "mysql:host=" . $container->get("database.host") . ";dbname=" . $container->get("database.name");
     }
 
+    /**
+     * Return all options for database connection
+     *
+     * @return array
+     */
     public function getDbOptions(): array
     {
         return [

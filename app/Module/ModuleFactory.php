@@ -11,11 +11,22 @@ use Psr\Container\ContainerInterface;
 
 class ModuleFactory
 {
+    /**
+     * Call the modules controller list from the container
+     *
+     * @param ContainerInterface $container
+     * @return array
+     */
     public function __invoke(ContainerInterface $container): array
     {
         return $container->get("modules_controller");
     }
 
+    /**
+     * Return the modules controller array 
+     *
+     * @return array
+     */
     public function getModules(): array
     {
         return [
