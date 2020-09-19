@@ -14,9 +14,9 @@ class MySQL implements Db
     */
     protected $pdo;
 
-    public function __construct(?ContainerInterface $container)
+    public function __construct(ContainerInterface $container)
     {
-        if ($container) {
+        if (!$container) {
             $this->pdo = $this->connect(
                 $container->get("database.dns"),
                 $container->get("database.username"),
